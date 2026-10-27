@@ -9,10 +9,10 @@
   const links = [["index.html", "Home", "home"], ["projects.html", "Projects", "projects"], ["blog.html", "Blog", "blog"]];
   $("#site-header").innerHTML = `
     <div class="container nav">
-      <a href="index.html" class="logo">${SITE.name}<span>.</span></a>
+      <a href="index.html" class="logo">${SITE.name}</a>
       <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
       <nav aria-label="Main"><ul>${links.map(([h, l, k]) => `<li><a href="${h}" ${k === page || (page === "post" && k === "blog") ? 'aria-current="page"' : ""}>${l}</a></li>`).join("")}
-      <li><a class="btn btn-small" href="mailto:${SITE.email}">Say hi</a></li></ul></nav>
+      <li><a class="btn btn-small" href="mailto:${SITE.email}">Contact</a></li></ul></nav>
     </div>`;
   const btn = $(".menu-btn");
   btn.addEventListener("click", () => {
@@ -23,7 +23,7 @@
   /* Footer */
   $("#site-footer").innerHTML = `
     <div class="container footer">
-      <p>© ${new Date().getFullYear()} ${SITE.name}. Made with care.</p>
+      <p>© ${new Date().getFullYear()} ${SITE.name}. All rights reserved.</p>
       <ul><li><a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="mailto:${SITE.email}">Email</a></li></ul>
