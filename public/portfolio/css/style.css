@@ -126,8 +126,6 @@ section { padding: 4rem 0; }
 /* Animations */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease, border-color .25s; }
 .reveal.visible { opacity: 1; transform: none; }
-@keyframes float { 50% { transform: translate(-30px, 30px) scale(1.05); } }
-@keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(14deg); } 20% { transform: rotate(-8deg); } }
 
 /* Mobile */
 @media (max-width: 720px) {

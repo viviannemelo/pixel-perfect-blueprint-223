@@ -23,7 +23,7 @@
   /* Footer */
   $("#site-footer").innerHTML = `
     <div class="container footer">
-      <p>© ${new Date().getFullYear()} ${SITE.name}. All rights reserved.</p>
+      <div><p class="footer-brand">${SITE.name}</p><p class="footer-tagline">Creativity for Quality Solutions</p></div>
       <ul><li><a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="mailto:${SITE.email}">Email</a></li></ul>
@@ -32,7 +32,7 @@
   /* Templates */
   const projectCard = p => `
     <article class="card project reveal">
-      <a href="${p.link}" class="project-media" style="--hue:${p.hue}">
+      <a href="${p.link}" class="project-media">
         ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : `<span aria-hidden="true">${p.title.charAt(0)}</span>`}
       </a>
       <div class="card-body"><p class="meta">${p.category} · ${p.year}</p><h3>${p.title}</h3><p>${p.description}</p></div>
