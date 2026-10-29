@@ -27,43 +27,68 @@ const PROJECTS = [
 ];
 
 /* --- Blog posts ---
-   To add a post: copy one object, give it a unique "slug"
-   (lowercase, dashes, no spaces) and write the body in HTML.
-   It will appear automatically on the blog list and open at
-   post.html?slug=your-slug. Newest dates show first. */
-const POSTS = [
+   Loaded live from Medium (MEDIUM_USER). This list is the
+   fallback shown if Medium can't be reached. */
+const MEDIUM_USER = "viviannemelo";
+let POSTS = [
   {
-    slug: "hello-world",
-    title: "Hello World: Why I Started This Blog [PLACEHOLDER]",
-    date: "2026-10-27",
-    tags: ["Personal"],
-    excerpt: "A short summary of the post that appears on the blog list.",
-    body: `
-      <p>This is an example post. Replace this text with your own story.</p>
-      <h2>A section title</h2>
-      <p>Write paragraphs, lists and code examples using simple HTML.</p>
-      <ul><li>First point</li><li>Second point</li></ul>
-      <pre><code>// Example code block
-function greet(name) {
-  return \`Hello, \${name}!\`;
-}</code></pre>
-      <blockquote>A highlighted quote or key takeaway.</blockquote>
-    `
+    "title": "How Regression Testing Became an AI Skill",
+    "date": "2026-10-29",
+    "tags": [
+      "QA",
+      "Claude AI"
+    ],
+    "excerpt": "Everyone is familiar with the traditional IT workflow: Development → Testing → Release → Regression Testing or Smoke Testing. But in the world of AI, is it…",
+    "link": "https://medium.com/@viviannemelo/how-regression-testing-became-an-ai-skill-1793572c044c"
   },
   {
-    slug: "solving-a-tricky-bug",
-    title: "How I Solved a Tricky Bug [PLACEHOLDER]",
-    date: "2026-10-10",
-    tags: ["Technical", "Debugging"],
-    excerpt: "The problem, the investigation and the fix — explained step by step.",
-    body: `<p>Describe the problem, what you tried, and what finally worked.</p>`
+    "title": "I Taught a Bot to Answer Support Tickets (and Then Tested It Like I Hate It)",
+    "date": "2026-09-25",
+    "tags": [
+      "AI Engineering",
+      "QA Engineer"
+    ],
+    "excerpt": "A QA engineer builds a drafting bot for the company’s customer support tool, spends most of her time trying to prove it wrong.",
+    "link": "https://medium.com/@viviannemelo/i-taught-a-bot-to-answer-support-tickets-and-then-tested-it-like-i-hate-it-d86a99ec5d92"
   },
   {
-    slug: "my-design-process",
-    title: "My Design Process, Explained Simply [PLACEHOLDER]",
-    date: "2026-09-22",
-    tags: ["Design"],
-    excerpt: "From a blank page to a finished visual — how I approach a new project.",
-    body: `<p>Explain your process in a way anyone can follow.</p>`
+    "title": "What Understanding Playwright’s Architecture Actually Changed in My Work as a QA",
+    "date": "2026-07-28",
+    "tags": [
+      "Automation Testing",
+      "QA"
+    ],
+    "excerpt": "For a long time, I thought “learning a test automation tool” just meant learning its syntax. Locators, assertions, a few hooks, done. I could write a test…",
+    "link": "https://medium.com/@viviannemelo/what-understanding-playwrights-architecture-actually-changed-in-my-work-as-a-qa-3d0964caeed4"
+  },
+  {
+    "title": "Ensuring Quality at Every Step",
+    "date": "2025-02-26",
+    "tags": [
+      "Test",
+      "Quality Assurance"
+    ],
+    "excerpt": "If you have ever developed or tested software, you know that, in the end, quality is what separates the experience of a happy user from a nightmare worthy of a…",
+    "link": "https://medium.com/@viviannemelo/ensuring-quality-at-every-step-3dd1b9053714"
+  },
+  {
+    "title": "Run, QA, Run! The journey of Quality Assurance as Forrest Gump",
+    "date": "2024-05-29",
+    "tags": [
+      "Development Cycle",
+      "Quality Assurance"
+    ],
+    "excerpt": "The movie “Forrest Gump” shows the amazing journey of a simple man who, even with his intellectual limitations, does great things and changes many people’s…",
+    "link": "https://medium.com/@viviannemelo/run-qa-run-the-journey-of-quality-assurance-as-forrest-gump-8f269970a2dd"
+  },
+  {
+    "title": "Ghostbusters vs. QA: The Incredible Journey of a Bug Hunter in the Software Development World",
+    "date": "2024-05-16",
+    "tags": [
+      "Bugs",
+      "QA Testing"
+    ],
+    "excerpt": "The movie Ghostbusters and the work of a QA hunting bugs share some surprising similarities.",
+    "link": "https://medium.com/@viviannemelo/ghostbusters-vs-qa-the-incredible-journey-of-a-bug-hunter-in-the-software-development-world-537f52b7e014"
   }
 ];
