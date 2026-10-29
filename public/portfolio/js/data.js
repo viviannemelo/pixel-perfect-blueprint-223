@@ -5,9 +5,9 @@
 
 /* --- Your profile (CUSTOMIZE) --- */
 const SITE = {
-  name: "Your Name",                         // [PLACEHOLDER]
-  role: "Developer & Visual Creator",        // [PLACEHOLDER]
-  intro: "I build things for the web, explore visual ideas and write about the problems I solve along the way.", // [PLACEHOLDER]
+  name: "Vivianne Melo",
+  role: "QA Engineer & AI SDET",
+  intro: "I build solutions to improve quality assurance for products and processes.",
   email: "you@example.com",                  // [PLACEHOLDER]
   github: "https://github.com/your-username",// [PLACEHOLDER]
   linkedin: "https://linkedin.com/in/your-profile" // [PLACEHOLDER]
