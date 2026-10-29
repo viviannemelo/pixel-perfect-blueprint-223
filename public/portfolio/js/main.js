@@ -3,7 +3,7 @@
   const $ = (s, r = document) => r.querySelector(s);
   const page = document.body.dataset.page;
   const fmt = d => new Date(d + "T00:00:00").toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-  const sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
+  let sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
 
   /* Header */
   const links = [["index.html", "Home", "home"], ["projects.html", "Projects", "projects"], ["blog.html", "Blog", "blog"]];
@@ -39,9 +39,9 @@
     </article>`;
   const postCard = p => `
     <article class="card post-card reveal">
-      <a href="post.html?slug=${p.slug}" class="card-body">
+      <a href="${p.link}" target="_blank" rel="noopener" class="card-body">
         <p class="meta"><time datetime="${p.date}">${fmt(p.date)}</time> · ${p.tags.join(", ")}</p>
-        <h3>${p.title}</h3><p>${p.excerpt}</p><span class="read-more">Read post →</span>
+        <h3>${p.title}</h3><p>${p.excerpt}</p><span class="read-more">Read on Medium →</span>
       </a>
     </article>`;
 
@@ -49,7 +49,11 @@
   document.querySelectorAll("[data-site]").forEach(el => el.textContent = SITE[el.dataset.site]);
   if (page === "home") {
     $("#featured-projects").innerHTML = PROJECTS.slice(0, 3).map(projectCard).join("");
-    $("#latest-posts").innerHTML = sorted.slice(0, 3).map(postCard).join("");
+  }
+  function drawPosts() {
+    if ($("#latest-posts")) $("#latest-posts").innerHTML = sorted.slice(0, 3).map(postCard).join("");
+    if ($("#post-list")) $("#post-list").innerHTML = sorted.map(postCard).join("");
+    observe();
   }
   if (page === "projects") {
     const grid = $("#gallery"), filters = $("#filters");
@@ -63,18 +67,20 @@
     });
     draw("All");
   }
-  if (page === "blog") $("#post-list").innerHTML = sorted.map(postCard).join("");
-  if (page === "post") {
-    const slug = new URLSearchParams(location.search).get("slug") || sorted[0].slug;
-    const p = POSTS.find(x => x.slug === slug);
-    const el = $("#post");
-    if (!p) { el.innerHTML = `<h1>Post not found</h1><p><a href="blog.html">← Back to the blog</a></p>`; }
-    else {
-      document.title = `${p.title} — ${SITE.name}`;
-      el.innerHTML = `<a href="blog.html" class="back">← All posts</a>
-        <p class="meta"><time datetime="${p.date}">${fmt(p.date)}</time> · ${p.tags.join(", ")}</p>
-        <h1>${p.title}</h1><div class="prose">${p.body}</div>`;
-    }
+  if (page === "post") location.replace("blog.html");
+  /* Live Medium feed (falls back to the list in data.js) */
+  if (page === "home" || page === "blog") {
+    drawPosts();
+    fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://medium.com/feed/@" + MEDIUM_USER))
+      .then(r => r.json()).then(d => {
+        if (d.status !== "ok" || !d.items.length) return;
+        const strip = h => { const t = document.createElement("div"); t.innerHTML = h; return [...t.querySelectorAll("p")].map(x => x.textContent.trim()).find(x => x.length > 60) || ""; };
+        sorted = d.items.map(i => { const e = strip(i.content || i.description); return {
+          title: i.title, date: i.pubDate.slice(0, 10), link: i.link.split("?")[0],
+          tags: (i.categories || []).slice(0, 2).map(c => c.replace(/-/g, " ").replace(/\b\w/g, m => m.toUpperCase()).replace(/\bQa\b/g, "QA").replace(/\bAi\b/g, "AI")),
+          excerpt: e.length > 160 ? e.slice(0, 160).replace(/\s\S*$/, "") + "…" : e }; });
+        drawPosts();
+      }).catch(() => {});
   }
 
   /* Scroll reveal (skipped automatically if user prefers reduced motion) */
