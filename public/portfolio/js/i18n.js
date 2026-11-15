@@ -14,7 +14,7 @@
     "Creativity for <span class=\"hl\">Quality Solutions</span>": "Criatividade para <span class=\"hl\">Soluções de Qualidade</span>",
     "QA Engineer & AI SDET": "Engenheira de QA & AI SDET",
     "I build solutions to improve quality assurance for products and processes.": "Desenvolvo soluções para aprimorar a garantia de qualidade de produtos e processos.",
-    "AI Engineering": "Engenharia de IA", "Data Viz": "Visualização de dados", "Web Design": "Design web",
+    "AI Engineering": "Engenharia de IA", "AI Engineering · 2026": "Engenharia de IA · 2026", "Data Viz": "Visualização de dados", "Web Design": "Design web",
     "Branding": "Identidade visual", "Illustration": "Ilustração",
     "An AI bot that researches every support ticket and drafts a reply for the team to review.": "Um bot de IA que pesquisa cada ticket de suporte e prepara uma resposta para a equipe revisar.",
     "From one Jira task to a published QA report: the AI investigates, writes requirements, plans tests and executes them with Playwright.": "De uma tarefa no Jira a um relatório de QA publicado: a IA investiga, escreve requisitos, planeja testes e os executa com Playwright.",

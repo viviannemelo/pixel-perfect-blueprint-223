@@ -63,7 +63,8 @@
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   while (walker.nextNode()) {
     const node = walker.currentNode;
-    if (!node.parentElement.closest("script, [lang], [data-i18n-html]")) staticText.push([node, node.textContent]);
+    const languageBlock = node.parentElement.closest("[lang]");
+    if (!node.parentElement.closest("script, [data-i18n-html]") && (!languageBlock || languageBlock === document.documentElement)) staticText.push([node, node.textContent]);
   }
   let selectedCategory = "All";
   function drawProjects() {
