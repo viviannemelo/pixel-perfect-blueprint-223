@@ -22,6 +22,7 @@
     "An AI bot that researches every support ticket and drafts a reply for the team to review.": "Um bot de IA que pesquisa cada ticket de suporte e prepara uma resposta para a equipe revisar.",
     "A Jira ticket becomes a complete test plan, evidence-backed results and an automated regression pack.": "Um ticket do Jira se transforma em um plano de testes completo, resultados com evidências e um pacote de regressão automatizado.",
     "From one Jira task to a published QA report: the AI investigates, writes requirements, plans tests and executes them with Playwright.": "De uma tarefa no Jira a um relatório de QA publicado: a IA investiga, escreve requisitos, planeja testes e os executa com Playwright.",
+    "A release gate that tests every change before deploy and says whether the release can proceed.": "Um portão de release que testa cada mudança antes do deploy e diz se o release pode seguir.",
     "Short description of what this project is and what you did.": "Breve descrição do projeto e da solução desenvolvida.",
     "Project Three [PLACEHOLDER]": "Projeto três [EXEMPLO]", "Project Four [PLACEHOLDER]": "Projeto quatro [EXEMPLO]",
     "Project Five [PLACEHOLDER]": "Projeto cinco [EXEMPLO]", "Project Six [PLACEHOLDER]": "Projeto seis [EXEMPLO]",
