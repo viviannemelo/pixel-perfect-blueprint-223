@@ -21,6 +21,9 @@
       <div class="lang-switch" role="group" aria-label="Language / Idioma"><button type="button" data-set-lang="en" aria-label="English" aria-pressed="${language === "en"}">EN</button><button type="button" data-set-lang="pt" aria-label="Português" aria-pressed="${language === "pt"}">PT</button></div>
     </div>`;
   const btn = $(".menu-btn");
+  const menuOpen = document.body.classList.contains("menu-open");
+  btn.setAttribute("aria-expanded", menuOpen);
+  btn.setAttribute("aria-label", t(menuOpen ? "Close menu" : "Open menu"));
   btn.addEventListener("click", () => {
     const open = document.body.classList.toggle("menu-open");
     btn.setAttribute("aria-expanded", open);
