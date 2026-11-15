@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E2E Triage — Vivianne Melo</title>
+    <meta name="description" content="An AI skill that runs right after the scheduled E2E pipeline and triages every failure: filters noise, reruns, classifies, fixes test errors and reports a short summary to the QA channel." />
+    <meta property="og:title" content="E2E Triage — Vivianne Melo" />
+    <meta property="og:description" content="An AI skill that runs right after the scheduled E2E pipeline and triages every failure: filters noise, reruns, classifies, fixes test errors and reports a short summary to the QA channel." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>E2E Triage</h1>
+        <p lang="en">An AI skill that runs right after the scheduled E2E pipeline and does the triage a person would do: filters, reruns, classifies, fixes test errors and reports a short summary.</p>
+        <p lang="pt">Uma skill de IA que roda sozinha logo depois do pipeline agendado de E2E e faz a triagem que uma pessoa faria: filtra, roda de novo, classifica, corrige erros de teste e reporta um resumo curto.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/58b21cdd-50ce-41f4-a3af-871de379ea10/e2e-triage-in-action.mp4" poster="/__l5e/assets-v1/afe4a527-de29-473b-a466-be6060e014bb/e2e-triage-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>Every day at 11:00 the scheduled E2E test pipeline runs. When it goes red, someone has to stop what they're doing and investigate each failure: read the log, run the test again and figure out whether the error is in the test or in the product. It's repetitive, slow work. When nobody does it, the pipeline stays red for days and the team stops trusting it.</p>
+          <h2>How it works</h2>
+          <p>The skill runs on its own right after the pipeline and does the triage a person would do:</p>
+          <ul>
+            <li><strong>Filters.</strong> Separates failures that are already known and tests that failed once but passed on retry. Those don't become alerts.</li>
+            <li><strong>Reruns.</strong> Runs each failure again, changing nothing, on the same commit the pipeline used. If it passes, it was flakiness, and it flags it for someone to look at.</li>
+            <li><strong>Classifies.</strong> Looks at what changed in the code since the last green run, the test trace, the execution time and, if needed, reproduces it on staging. Each failure becomes one of three: test error, product bug or undetermined.</li>
+            <li><strong>Fixes.</strong> If the error is in the test (a button that changed its name, for example), it adjusts the test, confirms it passes and opens a draft MR. It never weakens an assertion to make a test pass and never touches product code.</li>
+            <li><strong>Reports.</strong> Sends a single short message to the QA channel with what was fixed, the bugs with each spec's owner, what needs a person and what was already known. If everything is green, it sends nothing.</li>
+          </ul>
+          <h2>The result</h2>
+          <p>Whoever arrives has a ready summary and an MR to review, instead of a red screen to investigate from scratch.</p>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>Todo dia às 11:00 roda o pipeline agendado de testes E2E. Quando ele fica vermelho, alguém precisa parar o que está fazendo e investigar cada falha: ler o log, rodar o teste de novo e descobrir se o erro é do teste ou do produto. É um trabalho repetitivo e demorado. Quando ninguém faz, o pipeline fica vermelho por dias e o time para de confiar nele.</p>
+          <h2>Como funciona</h2>
+          <p>A skill roda sozinha logo depois do pipeline e faz a triagem que uma pessoa faria:</p>
+          <ul>
+            <li><strong>Filtra.</strong> Separa as falhas que já são conhecidas e os testes que falharam uma vez mas passaram no retry. Esses não viram alerta.</li>
+            <li><strong>Roda de novo.</strong> Executa cada falha outra vez, sem mudar nada, no mesmo commit que o pipeline usou. Se passar, era instabilidade, e ela marca para alguém olhar.</li>
+            <li><strong>Classifica.</strong> Olha o que mudou no código desde o último verde, o trace do teste, o tempo de execução e, se preciso, reproduz no staging. Cada falha vira um destes três: erro do teste, bug do produto ou indeterminado.</li>
+            <li><strong>Corrige.</strong> Se o erro é do teste (um botão que mudou de nome, por exemplo), ela ajusta o teste, confirma que passa e abre um MR em draft. Ela nunca enfraquece uma asserção para o teste passar e nunca mexe em código do produto.</li>
+            <li><strong>Reporta.</strong> Manda uma única mensagem curta no canal de QA com o que foi corrigido, os bugs com o dono de cada spec, o que precisa de uma pessoa e o que já era conhecido. Se tudo estiver verde, não manda nada.</li>
+          </ul>
+          <h2>O resultado</h2>
+          <p>Quem chega tem um resumo pronto e um MR para revisar, em vez de uma tela vermelha para investigar do zero.</p>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
