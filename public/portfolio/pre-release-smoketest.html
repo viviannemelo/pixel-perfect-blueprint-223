@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pre-release Smoketest — Vivianne Melo</title>
+    <meta name="description" content="A QA skill that tests everything going to production before deploy and says whether the release can proceed." />
+    <meta property="og:title" content="Pre-release Smoketest — Vivianne Melo" />
+    <meta property="og:description" content="A QA skill that tests everything going to production before deploy and says whether the release can proceed." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Pre-release Smoketest</h1>
+        <p lang="en">A QA skill that tests everything going to production before the deploy and says whether the release can proceed. Running on staging, it has already found 7 bugs that were blocking the deploy.</p>
+        <p lang="pt">Uma skill de QA que testa tudo o que vai para produção antes do deploy e diz se o release pode seguir. Rodando em staging, ela já encontrou 7 bugs que estavam bloqueando o deploy.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/3a65e676-d47d-482f-a52a-d3e82a03f0ec/pre-release-smoketest-in-action.mp4" poster="/__l5e/assets-v1/404653cd-5384-4e9b-95d6-cf1d6e62fb0c/pre-release-smoketest-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>Every week, many changes ship to production together, and testing everything by hand on the eve of the release doesn't fit the team's schedule.</p>
+          <p>Without a fixed process, the outcome depends on who is testing: which changes make the list, how much is tested around each one, and how the go / no-go decision is made. It's in those gaps that a side effect on a neighboring screen slips into production.</p>
+          <p>The skill replaces that with a single, repeatable gate before every deploy, with the same steps on every release.</p>
+          <h2>How it works</h2>
+          <p>On the eve of the release, someone from QA runs one command, and the skill follows five steps:</p>
+          <ol>
+            <li><strong>Scope:</strong> pulls from Jira every change marked as ready for the release. The list comes from the tool, not from a hand-built spreadsheet.</li>
+            <li><strong>Understand:</strong> reads each ticket (description, acceptance criteria and comments) and identifies the affected product area.</li>
+            <li><strong>Coverage:</strong> creates two kinds of tests for each change. Direct tests confirm what was built. Adjacent tests check what's around it, on the same screen or the same data, where side effects usually appear.</li>
+            <li><strong>Execution:</strong> runs everything in the browser. First a fixed set of essential product scenarios, then each change's tests, from most to least critical. Every failure is recorded with reproduction steps, expected and actual results.</li>
+            <li><strong>Verdict:</strong> says whether the release is ready, ready with minor risks or blocked, always explaining why. When it finds bugs, it generates a report for engineering.</li>
+          </ol>
+          <p>The skill is read-only: it doesn't deploy, doesn't change data and doesn't open tickets on its own. Login and two-factor authentication are always done by a person.</p>
+          <h2>Results so far</h2>
+          <ul>
+            <li>7 deploy-blocking bugs found on staging, all caught before reaching production — when fixing is still cheaper and no user was affected.</li>
+            <li>The biggest gain comes from the adjacent tests: they look at what's around each change, exactly the kind of failure a ticket-focused test would miss.</li>
+          </ul>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>Toda semana, muitas mudanças vão juntas para produção, e testar tudo à mão na véspera não cabe no tempo do time.</p>
+          <p>Sem um processo fixo, o resultado depende de quem está testando: quais mudanças entram na conta, quanto se testa em volta de cada uma e como se decide se o deploy pode seguir. É nessas lacunas que um efeito colateral em uma tela vizinha escapa para produção.</p>
+          <p>A skill troca isso por um portão único e repetível antes de cada deploy, com o mesmo passo a passo em todo release.</p>
+          <h2>Como funciona</h2>
+          <p>Na véspera do release, alguém do QA roda um comando, e a skill segue cinco passos:</p>
+          <ol>
+            <li><strong>Escopo:</strong> busca no Jira todas as mudanças marcadas como prontas para o release. A lista vem da ferramenta, e não de uma planilha montada à mão.</li>
+            <li><strong>Entender:</strong> lê cada ticket (descrição, critérios de aceite e comentários) e identifica a área do produto afetada.</li>
+            <li><strong>Cobertura:</strong> cria dois tipos de teste para cada mudança. Os diretos confirmam o que foi feito. Os adjacentes verificam o que está em volta, na mesma tela ou nos mesmos dados, onde efeitos colaterais costumam aparecer.</li>
+            <li><strong>Execução:</strong> roda tudo no navegador. Primeiro vem um conjunto fixo de cenários essenciais do produto, depois os testes de cada mudança, do mais crítico ao menos crítico. Cada falha fica registrada com os passos para reproduzir, o resultado esperado e o obtido.</li>
+            <li><strong>Veredito:</strong> diz se o release está pronto, pronto com riscos menores ou bloqueado, sempre explicando o motivo. Quando encontra bugs, gera um relatório para a engenharia.</li>
+          </ol>
+          <p>A skill só lê: não faz deploy, não altera dados e não abre tickets sozinha. O login e a autenticação em dois fatores são sempre feitos por uma pessoa.</p>
+          <h2>O resultado até agora</h2>
+          <ul>
+            <li>7 bugs que bloqueavam o deploy encontrados em staging, todos pegos antes de a versão chegar à produção — quando corrigir ainda é mais barato e nenhum usuário foi afetado.</li>
+            <li>O ganho vem principalmente dos testes adjacentes: eles olham para o que está em volta de cada mudança, que é justamente o tipo de falha que um teste focado só no ticket deixaria passar.</li>
+          </ul>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
