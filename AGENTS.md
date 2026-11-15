@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep portfolio language selection and rendering in shared browser scripts; all static pages load the same dictionary so navigation preserves one language.
+- Render project carousels through the shared browser script with native scroll snapping and cleanup on rerender, so touch navigation and language changes remain consistent.

@@ -101,6 +101,35 @@ section { padding: 4rem 0; }
 .card:hover .read-more { gap: .75rem; color: var(--accent); }
 .post-list { grid-template-columns: 1fr; max-width: 800px; }
 
+/* Project carousel: native swipe, square covers, and a quiet active-card accent. */
+.project-carousel { position: relative; min-width: 0; }
+.carousel-track { position: relative; display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; padding: .5rem 0 1.25rem; }
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track::after { content: ""; flex: 0 0 calc(100% - 380px - 1.5rem); }
+.carousel-track .project { flex: 0 0 380px; max-width: 100%; scroll-snap-align: start; opacity: 1; transform: none; transition: border-color .4s, background .4s; }
+.carousel-track .project.is-active { border-color: var(--accent); }
+.carousel-track .project.is-active::before { transform: scaleX(1); }
+.carousel-track .project-media { aspect-ratio: 1; }
+.carousel-track .card-body { min-height: 190px; }
+.carousel-controls { display: flex; align-items: center; gap: 1.25rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+.carousel-dots { display: flex; flex-wrap: wrap; gap: .3rem; margin-right: auto; }
+.carousel-dot { width: 28px; height: 32px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; padding: 0; }
+.carousel-dot::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: width .35s, border-radius .35s, background .35s; }
+.carousel-dot[aria-current="true"]::after { width: 24px; border-radius: 3px; background: var(--accent); }
+.carousel-count { color: var(--muted); font: .8rem var(--mono); white-space: nowrap; }
+.carousel-arrows { display: flex; gap: .5rem; }
+.carousel-button { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; cursor: pointer; }
+.carousel-button:disabled { opacity: .35; cursor: default; }
+@media (max-width: 720px) {
+  .carousel-track .project { flex-basis: 86%; }
+  .carousel-track::after { flex-basis: calc(14% - 1.5rem); }
+  .carousel-track { gap: 1rem; }
+  .carousel-controls { gap: .5rem; }
+  .carousel-dot { width: 22px; }
+  .carousel-button { width: 36px; height: 36px; }
+  .carousel-arrows { gap: .25rem; }
+}
+
 /* Filters */
 .filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
 .chip { font: inherit; font-size: .9rem; padding: .4rem .9rem; border-radius: var(--radius); border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all .2s; }
