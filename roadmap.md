@@ -1,3 +1,4 @@
 - [x] Add shared language selection to the top menu and translate all portfolio pages.
 - [x] Verify language persistence, project pages, blog, and mobile navigation.
 - [x] Add animated project carousels and verify navigation, language switching, and mobile layout.
+- [x] Add Test Generator with uploaded cover, video, bilingual page, and verify the project flow.
