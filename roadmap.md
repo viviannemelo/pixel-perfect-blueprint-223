@@ -3,3 +3,4 @@
 - [x] Add animated project carousels and verify navigation, language switching, and mobile layout.
 - [x] Add Test Generator with uploaded cover, video, bilingual page, and verify the project flow.
 - [x] Add Pre-release Smoketest with uploaded cover, video, bilingual page, and verify the project flow.
+- [x] Add Customer Articles every Release with uploaded cover, video, bilingual page, and verify the project flow.
