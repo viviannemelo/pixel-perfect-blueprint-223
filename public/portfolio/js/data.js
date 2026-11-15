@@ -18,7 +18,7 @@ const SITE = {
    "image" can be a path like "images/my-project.jpg" or left empty
    to show a colored gradient placeholder. */
 const PROJECTS = [
-  { title: "Support Bot", category: "AI Engineering", year: 2026, image: "media/support-bot.jpg", hue: 190, description: "An AI bot that researches every support ticket and drafts a reply for the team to review.", link: "support-bot.html" },
+  { title: "Support Bot", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/167fe5aa-cd75-44b7-afe3-1addb320d6e2/support-draft-bot-cover.jpg", hue: 190, description: "An AI bot that researches every support ticket and drafts a reply for the team to review.", link: "support-bot.html" },
   { title: "Feature Validator", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/cdac723b-7bdb-4008-8ce8-24966f02fe91/feature-validator-cover.jpg", hue: 15, description: "From one Jira task to a published QA report: the AI investigates, writes requirements, plans tests and executes them with Playwright.", link: "feature-validator.html" },
   { title: "Test Generator", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/387484d2-b630-43ac-b3f7-5de96ddb5df7/test-generator-cover.jpg", hue: 15, description: "A Jira ticket becomes a complete test plan, evidence-backed results and an automated regression pack.", link: "test-generator.html" },
   { title: "Project Four [PLACEHOLDER]", category: "Web Design", year: 2025, image: "", hue: 140, description: "Short description of what this project is and what you did.", link: "#" },
