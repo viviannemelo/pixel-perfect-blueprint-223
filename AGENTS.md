@@ -11,3 +11,4 @@
 
 - Keep portfolio language selection and rendering in shared browser scripts; all static pages load the same dictionary so navigation preserves one language.
 - Render project carousels through the shared browser script with native scroll snapping and cleanup on rerender, so touch navigation and language changes remain consistent.
+- Deploy only `public/portfolio` to GitHub Pages through the Pages artifact workflow on the repository default branch, so the static site publishes independently of the TanStack preview and draft branches cannot replace it.
