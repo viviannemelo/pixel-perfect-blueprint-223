@@ -28,6 +28,7 @@ const PROJECTS = [
   { title: "Internal QA Metrics", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/6568cdd1-5b0c-413b-ba65-4df29bb8b1d9/qa-metrics-cover.jpg", hue: 15, description: "A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.", link: "qa-metrics.html" },
   { title: "Accessibility Audit", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/f2f91ce8-ad46-455d-9089-d85de25426a9/accessibility-audit-cover.jpg", hue: 15, description: "A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.", link: "accessibility-audit.html" },
   { title: "E2E Triage", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/afe4a527-de29-473b-a466-be6060e014bb/e2e-triage-cover.jpg", hue: 15, description: "An AI skill that triages every E2E pipeline failure: filters noise, reruns, classifies, fixes test errors and reports a short summary.", link: "e2e-triage.html" },
+  { title: "E2E MR Review", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/5da1281d-1fe2-4728-81aa-8ef26464df2c/e2e-mr-review-cover.jpg", hue: 15, description: "An AI skill that reviews only the E2E tests in a merge request against six rules, with verified findings and inline fixes.", link: "e2e-mr-review.html" },
 ];
 
 /* --- Blog posts ---
