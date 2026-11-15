@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Test Generator — Vivianne Melo</title>
+    <meta name="description" content="A QA playbook that takes a Jira ticket from requirements to evidence-backed testing and an automated regression pack." />
+    <meta property="og:title" content="Test Generator — Vivianne Melo" />
+    <meta property="og:description" content="A QA playbook that takes a Jira ticket from requirements to evidence-backed testing and an automated regression pack." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Test Generator</h1>
+        <p lang="en">One command, <code>/test-generator ENG-1234</code>, takes a Jira ticket from requirements to evidence-backed testing — and, on request, an automated regression pack that keeps protecting the product after release.</p>
+        <p lang="pt">Um comando, <code>/test-generator ENG-1234</code>, leva um ticket do Jira dos requisitos aos testes com evidências — e, quando solicitado, a um pacote de regressão automatizado que continua protegendo o produto após a entrega.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/f664af3e-29f0-409c-9812-06e0cb15960c/test-generator-in-action.mp4" poster="/__l5e/assets-v1/387484d2-b630-43ac-b3f7-5de96ddb5df7/test-generator-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>Testing depth used to depend on who picked up the ticket and how much time they had. Under pressure, linked attachments went unopened, screens weren't compared field by field with Figma, and the impact on other features went unchecked. Bugs lacked owners, sprints or screenshots, while results were scattered across Jira comments.</p>
+          <p>Once the ticket shipped, the testing was gone. The next regression started from zero.</p>
+          <h2>The solution</h2>
+          <p>A repeatable QA playbook that follows the same steps for every ticket:</p>
+          <ol>
+            <li><strong>Check the setup:</strong> confirms VPN, Jira, Figma, Playwright, Datadog, local repositories and Node. If something is missing, it stops and explains what.</li>
+            <li><strong>Understand:</strong> reads the ticket, linked issues, comments, attachments and Figma. It documents acceptance criteria, business rules, every screen field and what must not happen. Unclear rules are checked with the reporter or developer instead of guessed.</li>
+            <li><strong>Design cases:</strong> compares code changes with requirements, flags missing implementations or undocumented behavior, and creates a plain-language plan covering happy paths, validation, negative and edge cases, design conformance, regression, state combinations and time-based behavior.</li>
+            <li><strong>Execute:</strong> runs the plan in a real staging browser alongside Figma. Login stays manual. Every failure is reproduced with screenshots; bugs are filed only after approval, with the sprint, developer and task link. Each round ends with one Jira comment and a go / no-go recommendation.</li>
+            <li><strong>Automate, on request:</strong> turns cases protecting money, state changes and fragile rules into an E2E pack. Data is prepared through the API, actions run through the UI, and results are verified in both. A README and merge request accompany the pack, which re-runs on scheduled builds.</li>
+          </ol>
+          <h2>Results</h2>
+          <ul>
+            <li>Consistent testing depth, regardless of who runs the ticket.</li>
+            <li>Actionable bugs with reproduction steps, evidence, severity and an owner.</li>
+            <li>One place for results: a single Jira comment per round.</li>
+            <li>Testing that outlives the release: the E2E pack catches regressions when the code changes again.</li>
+          </ul>
+          <p><strong>Key lesson:</strong> testing a ticket is only the beginning. Turning the important cases into repeatable regression coverage makes the quality work last.</p>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>A profundidade dos testes dependia de quem pegava o ticket e do tempo disponível. Sob pressão, anexos de tarefas relacionadas não eram abertos, telas não eram comparadas campo a campo com o Figma e o impacto em outras funcionalidades passava despercebido. Bugs ficavam sem responsável, sprint ou screenshots, enquanto os resultados se espalhavam por vários comentários no Jira.</p>
+          <p>Depois da entrega, os testes se perdiam. A próxima regressão começava do zero.</p>
+          <h2>A solução</h2>
+          <p>Um roteiro de QA repetível que segue os mesmos passos em cada ticket:</p>
+          <ol>
+            <li><strong>Verificar o ambiente:</strong> confirma VPN, Jira, Figma, Playwright, Datadog, repositórios locais e Node. Se algo estiver faltando, interrompe o processo e explica o que falta.</li>
+            <li><strong>Entender:</strong> lê o ticket, tarefas relacionadas, comentários, anexos e Figma. Documenta critérios de aceite, regras de negócio, cada campo das telas e o que não deve acontecer. Regras ambíguas são esclarecidas com o autor ou desenvolvedor, sem adivinhações.</li>
+            <li><strong>Planejar os casos:</strong> compara as alterações no código com os requisitos, aponta implementações ausentes ou comportamentos não documentados e cria um plano em linguagem clara, cobrindo fluxo principal, validações, cenários negativos, limites, conformidade visual, regressão, combinações de estado e comportamentos dependentes de tempo.</li>
+            <li><strong>Executar:</strong> roda o plano em um navegador real no staging, com o Figma ao lado. O login permanece manual. Cada falha é reproduzida com screenshots; bugs só são registrados após aprovação, com sprint, desenvolvedor e link da tarefa. Cada rodada termina com um comentário único no Jira e uma recomendação de liberar ou não liberar.</li>
+            <li><strong>Automatizar, quando solicitado:</strong> transforma os casos que protegem valores financeiros, mudanças de estado e regras frágeis em um pacote E2E. Os dados são preparados pela API, as ações passam pela interface e os resultados são verificados nas duas. O pacote inclui README e merge request e roda novamente nas execuções agendadas.</li>
+          </ol>
+          <h2>Resultados</h2>
+          <ul>
+            <li>A mesma profundidade de testes, independentemente de quem executa o ticket.</li>
+            <li>Bugs acionáveis, com passos de reprodução, evidências, severidade e responsável.</li>
+            <li>Resultados centralizados: um único comentário no Jira por rodada.</li>
+            <li>Testes que sobrevivem à entrega: o pacote E2E detecta regressões quando o código muda novamente.</li>
+          </ul>
+          <p><strong>Principal aprendizado:</strong> testar um ticket é só o começo. Transformar os casos importantes em uma cobertura de regressão repetível faz o trabalho de qualidade durar.</p>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
