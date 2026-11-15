@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support Bot — Vivianne Melo</title>
+    <meta name="description" content="An AI bot that researches every support ticket and drafts a reply for the team to review." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>document.documentElement.lang = localStorage.getItem("lang") || "en";</script>
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-set-lang="en">EN</button>
+          <button type="button" data-set-lang="pt">PT</button>
+        </div>
+      </div>
+
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Support Bot</h1>
+        <p lang="en">An AI bot that researches every support ticket and leaves a reply draft for the team to review. It never sends anything on its own.</p>
+        <p lang="pt">Um bot de IA que pesquisa cada ticket de suporte e deixa um rascunho de resposta para a equipe revisar. Ele nunca envia nada sozinho.</p>
+      </div>
+
+      <video class="project-video" src="media/support-bot.mp4" poster="media/support-bot.jpg" controls autoplay muted loop playsinline></video>
+
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>The support team answers questions about a complex product used by clinics. The slow part was never typing the reply. It was the research: searching docs, remembering how a similar case was solved, asking engineers whether a behavior is expected and checking for open issues.</p>
+          <p>Two rules from day one: the bot only writes drafts, so a person always decides what reaches the customer, and personal data stays out of every model call.</p>
+          <h2>The solution</h2>
+          <p>Every five minutes, a scheduled job runs each open conversation through four steps:</p>
+          <ol>
+            <li><strong>Protect:</strong> a de-identified copy of the conversation is created. Names, emails and phone numbers are removed before any model sees it.</li>
+            <li><strong>Understand:</strong> checks decide whether a draft is needed, then the ticket is classified by topic, intent and product area.</li>
+            <li><strong>Research:</strong> the bot gathers evidence from docs, past tickets, the codebase, the issue tracker and lessons learned from earlier drafts.</li>
+            <li><strong>Draft:</strong> it writes the reply following the team's style guide, then automatic checks block broken links, unconfirmed promises and internal names.</li>
+          </ol>
+          <p>A daily learning loop compares each draft with what the agent actually sent and stores the lesson, so the next similar ticket starts better.</p>
+          <h2>Results</h2>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>A equipe de suporte responde dúvidas sobre um produto complexo usado por clínicas. A parte lenta nunca foi escrever a resposta, e sim a pesquisa: procurar na documentação, lembrar como um caso parecido foi resolvido, perguntar aos engenheiros se um comportamento é esperado e verificar se já existe uma tarefa aberta.</p>
+          <p>Duas regras desde o primeiro dia: o bot só escreve rascunhos, então uma pessoa sempre decide o que chega ao cliente, e dados pessoais nunca vão para os modelos de IA.</p>
+          <h2>A solução</h2>
+          <p>A cada cinco minutos, uma rotina agendada passa cada conversa aberta por quatro etapas:</p>
+          <ol>
+            <li><strong>Proteger:</strong> é criada uma cópia anonimizada da conversa. Nomes, e-mails e telefones são removidos antes de qualquer modelo ler.</li>
+            <li><strong>Entender:</strong> verificações decidem se um rascunho é necessário e o ticket é classificado por tema, intenção e área do produto.</li>
+            <li><strong>Pesquisar:</strong> o bot reúne evidências da documentação, de tickets antigos, do código, do sistema de tarefas e das lições aprendidas com rascunhos anteriores.</li>
+            <li><strong>Redigir:</strong> escreve a resposta seguindo o guia de estilo da equipe, e verificações automáticas bloqueiam links quebrados, promessas não confirmadas e nomes internos.</li>
+          </ol>
+          <p>Um ciclo diário de aprendizado compara cada rascunho com o que o atendente realmente enviou e guarda a lição, para que o próximo ticket parecido comece melhor.</p>
+          <h2>Resultados</h2>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>17% → 33%</strong><span lang="en">drafts used by the team in two weeks</span><span lang="pt">rascunhos usados pela equipe em duas semanas</span></div>
+          <div class="stat"><strong>10–15h</strong><span lang="en">of agent time saved for about $150</span><span lang="pt">de tempo da equipe economizadas por cerca de US$ 150</span></div>
+          <div class="stat"><strong>0</strong><span lang="en">messages sent without human review</span><span lang="pt">mensagens enviadas sem revisão humana</span></div>
+        </div>
+        <p lang="en"><strong>Key lesson:</strong> grounding is everything. The bot states a fact only when it has a source, and asks the customer instead of guessing.</p>
+        <p lang="pt"><strong>Principal aprendizado:</strong> embasamento é tudo. O bot só afirma algo quando tem uma fonte e, na dúvida, pergunta ao cliente em vez de adivinhar.</p>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      (function () {
+        var btns = document.querySelectorAll("[data-set-lang]");
+        function set(l) {
+          document.documentElement.lang = l; localStorage.setItem("lang", l);
+          btns.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === l); });
+        }
+        btns.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.setLang); }); });
+        set(document.documentElement.lang);
+      })();
+    </script>
+  </body>
+</html>

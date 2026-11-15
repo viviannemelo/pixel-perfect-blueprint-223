@@ -18,7 +18,7 @@ const SITE = {
    "image" can be a path like "images/my-project.jpg" or left empty
    to show a colored gradient placeholder. */
 const PROJECTS = [
-  { title: "Project One [PLACEHOLDER]", category: "Web Design", year: 2026, image: "", hue: 190, description: "Short description of what this project is and what you did.", link: "#" },
+  { title: "Support Bot", category: "AI Engineering", year: 2026, image: "media/support-bot.jpg", hue: 190, description: "An AI bot that researches every support ticket and drafts a reply for the team to review.", link: "support-bot.html" },
   { title: "Project Two [PLACEHOLDER]", category: "Illustration", year: 2026, image: "", hue: 320, description: "Short description of what this project is and what you did.", link: "#" },
   { title: "Project Three [PLACEHOLDER]", category: "Data Viz", year: 2025, image: "", hue: 45, description: "Short description of what this project is and what you did.", link: "#" },
   { title: "Project Four [PLACEHOLDER]", category: "Web Design", year: 2025, image: "", hue: 140, description: "Short description of what this project is and what you did.", link: "#" },
