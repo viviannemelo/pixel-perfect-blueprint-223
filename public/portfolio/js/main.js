@@ -11,7 +11,7 @@
     <div class="container nav">
       <a href="index.html" class="logo">${SITE.name}</a>
       <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-      <nav aria-label="Main"><ul>${links.map(([h, l, k]) => `<li><a href="${h}" ${k === page || (page === "post" && k === "blog") ? 'aria-current="page"' : ""}>${l}</a></li>`).join("")}
+      <nav aria-label="Main"><ul>${links.map(([h, l, k]) => `<li><a href="${h}" ${k === page || (page === "post" && k === "blog") || (page === "project" && k === "projects") ? 'aria-current="page"' : ""}>${l}</a></li>`).join("")}
       <li><a class="btn btn-small" href="mailto:${SITE.email}">Contact</a></li></ul></nav>
     </div>`;
   const btn = $(".menu-btn");
