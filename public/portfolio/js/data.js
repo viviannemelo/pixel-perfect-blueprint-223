@@ -19,7 +19,7 @@ const SITE = {
    to show a colored gradient placeholder. */
 const PROJECTS = [
   { title: "Support Bot", category: "AI Engineering", year: 2026, image: "media/support-bot.jpg", hue: 190, description: "An AI bot that researches every support ticket and drafts a reply for the team to review.", link: "support-bot.html" },
-  { title: "Project Two [PLACEHOLDER]", category: "Illustration", year: 2026, image: "", hue: 320, description: "Short description of what this project is and what you did.", link: "#" },
+  { title: "Feature Validator", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/cdac723b-7bdb-4008-8ce8-24966f02fe91/feature-validator-cover.jpg", hue: 15, description: "From one Jira task to a published QA report: the AI investigates, writes requirements, plans tests and executes them with Playwright.", link: "feature-validator.html" },
   { title: "Project Three [PLACEHOLDER]", category: "Data Viz", year: 2025, image: "", hue: 45, description: "Short description of what this project is and what you did.", link: "#" },
   { title: "Project Four [PLACEHOLDER]", category: "Web Design", year: 2025, image: "", hue: 140, description: "Short description of what this project is and what you did.", link: "#" },
   { title: "Project Five [PLACEHOLDER]", category: "Branding", year: 2025, image: "", hue: 260, description: "Short description of what this project is and what you did.", link: "#" },
