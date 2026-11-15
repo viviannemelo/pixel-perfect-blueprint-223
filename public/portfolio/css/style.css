@@ -26,7 +26,7 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 
 /* Header */
 #site-header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.nav { gap: 1rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .logo { font-weight: 600; letter-spacing: -.02em; font-size: 1.2rem; color: var(--text); text-decoration: none; }
 .logo span { color: var(--accent); }
 nav ul { display: flex; gap: 1.75rem; align-items: center; list-style: none; margin: 0; padding: 0; }
@@ -129,10 +129,13 @@ section { padding: 4rem 0; }
 
 /* Mobile */
 @media (max-width: 720px) {
-  .menu-btn { display: block; }
-  nav { position: fixed; inset: 68px 0 auto 0; background: var(--bg); border-bottom: 1px solid var(--border); transform: translateY(-120%); transition: transform .3s; }
+  .menu-btn { display: block; margin-left: auto; }
+  .logo { font-size: 1rem; }
+  .nav { gap: .5rem; }
+  .lang-switch button { min-width: 38px; padding: .4rem .5rem; }
+  nav { position: fixed; inset: 68px 0 auto 0; background: var(--bg); border-bottom: 1px solid var(--border); visibility: hidden; pointer-events: none; transform: translateY(-120%); transition: transform .3s; }
   nav ul { flex-direction: column; padding: 1.5rem; gap: 1.25rem; }
-  .menu-open nav { transform: none; }
+  .menu-open nav { visibility: visible; pointer-events: auto; transform: none; }
   .menu-open .menu-btn span:first-child { transform: translateY(4.5px) rotate(45deg); }
   .menu-open .menu-btn span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
   .hero { padding: 4rem 0 3rem; }
@@ -146,7 +149,7 @@ section { padding: 4rem 0; }
 
 /* Project detail page + language switch */
 html[lang="en"] [lang="pt"], html[lang="pt"] [lang="en"] { display: none !important; }
-.lang-switch { display: inline-flex; border: 1px solid var(--text); border-radius: var(--radius); overflow: hidden; }
+.lang-switch { flex-shrink: 0; display: inline-flex; border: 1px solid var(--text); border-radius: var(--radius); overflow: hidden; }
 .lang-switch button { font: inherit; font-size: .85rem; font-weight: 600; padding: .4rem .9rem; border: 0; background: transparent; color: var(--text); cursor: pointer; }
 .lang-switch button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
 .project-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 2.5rem; flex-wrap: wrap; }

@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Support Bot — Vivianne Melo</title>
     <meta name="description" content="An AI bot that researches every support ticket and drafts a reply for the team to review." />
+    <meta property="og:title" content="Support Bot — Vivianne Melo" />
+    <meta property="og:description" content="An AI bot that researches every support ticket and drafts a reply for the team to review." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="css/style.css" />
-    <script>document.documentElement.lang = localStorage.getItem("lang") || "en";</script>
   </head>
   <body data-page="project">
     <a class="skip" href="#main">Skip to content</a>
@@ -16,10 +19,6 @@
     <main id="main" class="container">
       <div class="project-top">
         <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
-        <div class="lang-switch" role="group" aria-label="Language / Idioma">
-          <button type="button" data-set-lang="en">EN</button>
-          <button type="button" data-set-lang="pt">PT</button>
-        </div>
       </div>
 
       <div class="page-head" style="padding-top:2rem">
@@ -73,17 +72,7 @@
     </main>
     <footer id="site-footer"></footer>
     <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
-    <script>
-      (function () {
-        var btns = document.querySelectorAll("[data-set-lang]");
-        function set(l) {
-          document.documentElement.lang = l; localStorage.setItem("lang", l);
-          btns.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === l); });
-        }
-        btns.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.setLang); }); });
-        set(document.documentElement.lang);
-      })();
-    </script>
   </body>
 </html>
