@@ -16,6 +16,6 @@ describe('portfolio publishing rules', () => {
     expect(localizeMedia('<img src="/__l5e/assets-v1/example/cover.jpg">', [{ url: '/__l5e/assets-v1/example/cover.jpg', original_filename: 'cover.jpg' }])).toBe('<img src="media/cover.jpg">');
   });
   it('includes the eight published projects with real page destinations', () => {
-    expect(profile.PROJECTS.map((project: { link: string }) => project.link)).toEqual(['support-bot.html', 'feature-validator.html', 'test-generator.html', 'pre-release-smoketest.html', 'customer-articles.html', 'knowledge-base.html', 'qa-metrics.html', 'accessibility-audit.html']);
+    expect(profile.PROJECTS.map((project: { link: string }) => project.link)).toEqual(['support-bot.html', 'feature-validator.html', 'test-generator.html', 'pre-release-smoketest.html', 'customer-articles.html', 'knowledge-base.html', 'qa-metrics.html', 'accessibility-audit.html', 'e2e-triage.html']);
   });
 });
