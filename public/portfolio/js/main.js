@@ -143,12 +143,9 @@
     requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft - track.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
-    const grid = $("#gallery"), filters = $("#filters");
-    if (!grid || !filters) return;
-    const cats = ["All", ...new Set(PROJECTS.map(p => p.category))];
-    filters.setAttribute("aria-label", t("Filter by category"));
-    filters.innerHTML = cats.map(c => `<button class="chip" data-category="${c}" aria-pressed="${c === selectedCategory}">${t(c)}</button>`).join("");
-    drawCarousel(grid, PROJECTS.filter(p => selectedCategory === "All" || p.category === selectedCategory));
+    const grid = $("#gallery");
+    if (!grid) return;
+    drawCarousel(grid, PROJECTS);
     observe();
   }
   function setLanguage(value) {
