@@ -70,13 +70,85 @@
     if (!node.parentElement.closest("script, [data-i18n-html]") && (!languageBlock || languageBlock === document.documentElement)) staticText.push([node, node.textContent]);
   }
   let selectedCategory = "All";
+  const carousels = new Map();
+  function drawCarousel(root, projects) {
+    const previous = carousels.get(root.id);
+    const initial = Math.min(previous?.index || 0, Math.max(0, projects.length - 1));
+    previous?.cleanup();
+    root.className = "project-carousel";
+    root.setAttribute("role", "region");
+    root.setAttribute("aria-roledescription", "carousel");
+    root.setAttribute("aria-label", t("Projects"));
+    const arrow = direction => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${direction === "previous" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}"/></svg>`;
+    root.innerHTML = `<div class="carousel-track" tabindex="0" aria-label="${t("Projects")}">${projects.map(projectCard).join("")}</div>
+      <div class="carousel-controls"><div class="carousel-dots">${projects.map((p, i) => `<button class="carousel-dot" data-slide="${i}" aria-label="${t("Go to project")}: ${t(p.title)}" title="${t(p.title)}"></button>`).join("")}</div>
+      <span class="carousel-count" aria-live="polite"></span><div class="carousel-arrows">
+      <button class="btn btn-ghost carousel-button" data-action="previous" aria-label="${t("Previous project")}" title="${t("Previous project")}">${arrow("previous")}</button>
+      <button class="btn btn-ghost carousel-button" data-action="play" aria-label="${t("Pause carousel")}" title="${t("Pause carousel")}"></button>
+      <button class="btn btn-ghost carousel-button" data-action="next" aria-label="${t("Next project")}" title="${t("Next project")}">${arrow("next")}</button></div></div>`;
+    const track = $(".carousel-track", root), cards = [...track.children];
+    const controller = new AbortController(), options = { signal: controller.signal };
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    let playing = !reduced.matches && projects.length > 1;
+    let hovered = false, visible = false, frame = 0;
+    const state = { index: initial, cleanup: () => { controller.abort(); clearInterval(timer); cancelAnimationFrame(frame); observer.disconnect(); } };
+    carousels.set(root.id, state);
+    cards.forEach(card => card.classList.add("visible"));
+    function update() {
+      cards.forEach((card, i) => card.classList.toggle("is-active", i === state.index));
+      root.querySelectorAll("[data-slide]").forEach((dot, i) => dot.setAttribute("aria-current", i === state.index ? "true" : "false"));
+      $(".carousel-count", root).textContent = `${String(state.index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+      const play = $('[data-action="play"]', root);
+      play.setAttribute("aria-label", t(playing ? "Pause carousel" : "Play carousel"));
+      play.title = t(playing ? "Pause carousel" : "Play carousel");
+      play.innerHTML = playing ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>' : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+      root.querySelectorAll("[data-action]").forEach(button => button.disabled = projects.length < 2);
+    }
+    function go(index, manual = false) {
+      if (!cards.length) return;
+      if (manual) playing = false;
+      state.index = (index + cards.length) % cards.length;
+      track.scrollTo({ left: cards[state.index].offsetLeft - track.offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
+      update();
+    }
+    root.addEventListener("click", event => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      if (button.dataset.slide !== undefined) go(Number(button.dataset.slide), true);
+      if (button.dataset.action === "previous") go(state.index - 1, true);
+      if (button.dataset.action === "next") go(state.index + 1, true);
+      if (button.dataset.action === "play") { playing = !playing; update(); }
+    }, options);
+    track.addEventListener("keydown", event => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault(); go(state.index + (event.key === "ArrowRight" ? 1 : -1), true);
+    }, options);
+    track.addEventListener("pointerdown", () => { playing = false; update(); }, options);
+    track.addEventListener("wheel", () => { playing = false; update(); }, options);
+    track.addEventListener("scroll", () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const distances = cards.map(card => Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft));
+        state.index = distances.indexOf(Math.min(...distances)); update();
+      });
+    }, options);
+    root.addEventListener("mouseenter", () => hovered = true, options);
+    root.addEventListener("mouseleave", () => hovered = false, options);
+    const observer = new IntersectionObserver(entries => visible = entries[0].isIntersecting, { threshold: .4 });
+    observer.observe(root);
+    const timer = setInterval(() => {
+      if (playing && visible && !hovered && !document.hidden && !root.contains(document.activeElement)) go(state.index + 1);
+    }, 5500);
+    update();
+    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft - track.offsetLeft || 0, behavior: "instant" }));
+  }
   function drawProjects() {
     const grid = $("#gallery"), filters = $("#filters");
     if (!grid || !filters) return;
     const cats = ["All", ...new Set(PROJECTS.map(p => p.category))];
     filters.setAttribute("aria-label", t("Filter by category"));
     filters.innerHTML = cats.map(c => `<button class="chip" data-category="${c}" aria-pressed="${c === selectedCategory}">${t(c)}</button>`).join("");
-    grid.innerHTML = PROJECTS.filter(p => selectedCategory === "All" || p.category === selectedCategory).map(projectCard).join("");
+    drawCarousel(grid, PROJECTS.filter(p => selectedCategory === "All" || p.category === selectedCategory));
     observe();
   }
   function setLanguage(value) {
@@ -90,7 +162,7 @@
     document.querySelectorAll("[data-i18n-html]").forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
     document.querySelectorAll("[data-site]").forEach(el => el.textContent = t(SITE[el.dataset.site]));
     drawHeader(); drawFooter();
-    if ($("#featured-projects")) $("#featured-projects").innerHTML = PROJECTS.slice(0, 3).map(projectCard).join("");
+    if ($("#featured-projects")) drawCarousel($("#featured-projects"), PROJECTS.slice(0, 3));
     drawProjects(); drawPosts();
     const titles = { home: "Vivianne Melo — QA Engineer & AI SDET", projects: "Projects — Vivianne Melo", blog: "Blog — Vivianne Melo" };
     if (titles[page]) document.title = page === "home" ? `Vivianne Melo — ${t(SITE.role)}` : `${t(page === "projects" ? "Projects" : "Blog")} — Vivianne Melo`;
