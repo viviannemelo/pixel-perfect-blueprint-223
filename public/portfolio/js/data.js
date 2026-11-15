@@ -27,6 +27,7 @@ const PROJECTS = [
   { title: "Internal Knowledge Base", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/04838157-06aa-4e99-8fde-0468f4371a18/knowledge-base-cover.jpg", hue: 15, description: "A searchable base that gathers the company's scattered knowledge in one place and keeps itself up to date.", link: "knowledge-base.html" },
   { title: "Internal QA Metrics", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/6568cdd1-5b0c-413b-ba65-4df29bb8b1d9/qa-metrics-cover.jpg", hue: 15, description: "A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.", link: "qa-metrics.html" },
   { title: "Accessibility Audit", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/f2f91ce8-ad46-455d-9089-d85de25426a9/accessibility-audit-cover.jpg", hue: 15, description: "A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.", link: "accessibility-audit.html" },
+  { title: "E2E Triage", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/afe4a527-de29-473b-a466-be6060e014bb/e2e-triage-cover.jpg", hue: 15, description: "An AI skill that triages every E2E pipeline failure: filters noise, reruns, classifies, fixes test errors and reports a short summary.", link: "e2e-triage.html" },
 ];
 
 /* --- Blog posts ---
