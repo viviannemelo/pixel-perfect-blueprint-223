@@ -5,3 +5,4 @@
 - [x] Add Pre-release Smoketest with uploaded cover, video, bilingual page, and verify the project flow.
 - [x] Add Customer Articles every Release with uploaded cover, video, bilingual page, and verify the project flow.
 - [x] Add Internal Knowledge Base with extracted cover, video, bilingual page, and verify the project flow.
+- [x] Add Internal QA Metrics with extracted cover, video, bilingual page, and verify the project flow.
