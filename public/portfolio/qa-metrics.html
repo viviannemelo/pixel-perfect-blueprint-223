@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Internal QA Metrics — Vivianne Melo</title>
+    <meta name="description" content="A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go." />
+    <meta property="og:title" content="Internal QA Metrics — Vivianne Melo" />
+    <meta property="og:description" content="A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Internal QA Metrics</h1>
+        <p lang="en">A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.</p>
+        <p lang="pt">Um painel com três métricas de qualidade, calculadas sobre os bugs reais do Jira, para que o time de QA saiba onde está e para onde precisa ir.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/11c5adc5-2dc8-4400-bc87-44d1c11a6a32/qa-metrics-in-action.mp4" poster="/__l5e/assets-v1/6568cdd1-5b0c-413b-ba65-4df29bb8b1d9/qa-metrics-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>Why measure</h2>
+          <p>Until then, the quality of what we delivered was assessed more by feeling than by numbers. We knew when a week had been hard, but we couldn't say whether the team was improving from one month to the next.</p>
+          <p>QA Metrics solves this with three simple questions: does what we fixed stay fixed? How severe are the bugs we find? How much do we let slip through to the customer?</p>
+          <h2>Where the data comes from</h2>
+          <p>Everything comes from Jira, with no side spreadsheets:</p>
+          <ul>
+            <li><strong>Priority</strong> — from Lowest to Highest — becomes the severity weight.</li>
+            <li><strong>Status history</strong> — when a bug goes back from To test, Ready to Release or Done to development, it counts as a reopening.</li>
+          </ul>
+          <h2>The three metrics</h2>
+          <ul>
+            <li><strong>Recurrence</strong> — did what we fixed break again? Reopened ÷ fixed × 100. Year: 5.6% · Aug–Oct: 5.3% · Goal: ≤ 5%.</li>
+            <li><strong>Severity</strong> — how grave are the bugs? Weighted average of priority (Lowest = 1 … Highest = 5). Year: 3.24 · Aug–Oct: 3.01 · Goal: ≤ 3.00.</li>
+            <li><strong>DRE</strong> — how much do we remove before the customer? 100 − production ÷ total × 100. Year: 72.3% · Aug–Oct: 82.3% · Goal: ≥ 85%.</li>
+          </ul>
+          <p>The goals start from market references and are a starting point for the team to adjust. Over the year the team is close to the recurrence and severity goals; the biggest gap is in DRE, but the last three months show clear improvement.</p>
+          <h2>The Radar: a score from 0 to 100</h2>
+          <p>To make it easy to follow, the three metrics become a single score, presented by a robot called Radar, the release guardian. Each metric is worth 100 when on goal and 0 at the limit (recurrence 15%, severity 4.00, DRE 50%). The Radar is the average of the three:</p>
+          <ul>
+            <li>Recurrence: score 94</li>
+            <li>Severity: score 76</li>
+            <li>DRE: score 64</li>
+          </ul>
+          <p>The team closes the year so far with 78 out of 100 ("Attention"), but at the August-to-October pace the score rises to 96. Radar's face changes with the score: it smiles from 85 up, stays alert between 65 and 84, and goes on alert below that.</p>
+          <h2>Individual profiles</h2>
+          <p>Besides the team view, the dashboard has a profile for each QA person, designed to guide improvements, not to rank people.</p>
+          <p>Clicking a name shows the three personal metrics compared with the team's, the month-by-month history and the tasks with the worst rates, with a direct link to Jira. The dashboard also suggests practical actions, like writing verifiable acceptance criteria or building a regression checklist for the areas with the most escapes.</p>
+          <p>Two safeguards are written into the dashboard itself: a production bug is only attributed to someone when it's linked to a tested task, and profiles with less than three months of data are marked as a small sample.</p>
+        </div>
+        <div lang="pt">
+          <h2>Por que medir</h2>
+          <p>Até aqui, a qualidade do que entregávamos era avaliada mais por sensação do que por número. Sabíamos quando uma semana tinha sido difícil, mas não conseguíamos dizer se o time estava melhorando de um mês para o outro.</p>
+          <p>O QA Metrics resolve isso com três perguntas simples: o que corrigimos continua corrigido? Quão graves são os bugs que encontramos? Quanto deixamos escapar para o cliente?</p>
+          <h2>De onde vêm os dados</h2>
+          <p>Tudo sai do Jira, sem planilhas paralelas:</p>
+          <ul>
+            <li><strong>A prioridade</strong> — de Lowest a Highest — vira o peso de severidade.</li>
+            <li><strong>O histórico de status</strong> — quando um bug volta de To test, Ready to Release ou Done para desenvolvimento, conta como reabertura.</li>
+          </ul>
+          <h2>As três métricas</h2>
+          <ul>
+            <li><strong>Reincidência</strong> — o que corrigimos voltou a quebrar? Reabertos ÷ corrigidos × 100. Ano: 5,6% · Ago–Out: 5,3% · Meta: ≤ 5%.</li>
+            <li><strong>Severidade</strong> — quão graves são os bugs? Média ponderada da prioridade (Lowest = 1 … Highest = 5). Ano: 3,24 · Ago–Out: 3,01 · Meta: ≤ 3,00.</li>
+            <li><strong>DRE</strong> — quanto removemos antes do cliente? 100 − produção ÷ total × 100. Ano: 72,3% · Ago–Out: 82,3% · Meta: ≥ 85%.</li>
+          </ul>
+          <p>As metas partem de referências de mercado e são um ponto de partida para o time ajustar. No ano, o time está perto da meta em reincidência e severidade; a maior distância está no DRE, mas os últimos três meses mostram uma melhora clara.</p>
+          <h2>O Radar: uma nota de 0 a 100</h2>
+          <p>Para ficar fácil de acompanhar, as três métricas viram uma nota só, apresentada por um robô chamado Radar, o guardião do release. Cada métrica vale 100 quando está na meta e 0 quando chega ao limite (reincidência 15%, severidade 4,00, DRE 50%). O Radar é a média das três:</p>
+          <ul>
+            <li>Reincidência: nota 94</li>
+            <li>Severidade: nota 76</li>
+            <li>DRE: nota 64</li>
+          </ul>
+          <p>O time fecha o ano até aqui com 78 de 100 ("Atenção"), mas no ritmo de agosto a outubro a nota sobe para 96. A cara do Radar muda com a nota: sorri a partir de 85, fica atento entre 65 e 84 e entra em alerta abaixo disso.</p>
+          <h2>Perfis individuais</h2>
+          <p>Além da visão do time, o painel tem um perfil para cada pessoa de QA, pensado para orientar melhorias e não para ranquear pessoas.</p>
+          <p>Ao clicar em um nome, aparecem as três métricas pessoais comparadas com as do time, o histórico mês a mês e as tasks com os piores índices, com link direto para o Jira. O painel também sugere ações práticas, como escrever critérios de aceite verificáveis ou montar um checklist de regressão para as áreas com mais escapes.</p>
+          <p>Dois cuidados estão escritos no próprio painel: um bug de produção só é atribuído a alguém quando está ligado a uma task testada, e perfis com menos de três meses de dados são marcados como amostra pequena.</p>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
