@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feature Validator — Vivianne Melo</title>
+    <meta name="description" content="From one Jira task to a published QA report: an AI skill that investigates, writes requirements, plans tests and executes them with Playwright." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>document.documentElement.lang = localStorage.getItem("lang") || "en";</script>
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-set-lang="en">EN</button>
+          <button type="button" data-set-lang="pt">PT</button>
+        </div>
+      </div>
+
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Feature Validator</h1>
+        <p lang="en">You type <code>/feature-validator ENG-1234</code> and get back a published QA report with evidence. In between, the AI reads the code, the merge request, the Figma file and the Jira task, writes the requirements, builds the test plan and runs the cases on staging with Playwright.</p>
+        <p lang="pt">Você digita <code>/feature-validator ENG-1234</code> e recebe de volta um relatório de QA publicado, com evidências. No meio do caminho, a IA lê o código, o merge request, o Figma e a task do Jira, escreve os requisitos, monta o plano de testes e executa os casos no staging com Playwright.</p>
+      </div>
+
+      <video class="project-video" src="/__l5e/assets-v1/93c6ae63-d736-4123-bc52-aa40186bc211/feature-validator-in-action.mp4" poster="/__l5e/assets-v1/cdac723b-7bdb-4008-8ce8-24966f02fe91/feature-validator-cover.jpg" controls autoplay muted loop playsinline></video>
+
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>Good QA is traceable. Every test case should point to a requirement, every requirement to a source (an acceptance criterion, a Figma frame, an MR comment, a piece of code), and every bug to its evidence. Doing that by hand for every feature is slow, so most of the traceability gets lost along the way.</p>
+          <p>The idea behind this skill: one reference is enough. You give it a Jira task or a git branch — nobody pastes code or requirements — and it discovers the rest of the context on its own.</p>
+          <h2>The solution</h2>
+          <p>The skill runs in four phases, and each one delivers an artifact that feeds the next:</p>
+          <ol>
+            <li><strong>Investigation:</strong> reads the diff, the merge request discussions and the Figma file, and maps what doesn't happen on click — crons, queues, emails, reminders, expirations.</li>
+            <li><strong>Requirements:</strong> builds a matrix where every requirement carries its source and its state variables (status, role, feature flag, timezone, empty or filled, first time or recurring).</li>
+            <li><strong>Test plan:</strong> a table where every requirement gets at least one case, plus control cases, end-state checks, post-transition consistency and pairwise state combinations.</li>
+            <li><strong>Execution (optional):</strong> runs the cases by priority with Playwright, marked PASSED, FAILED or NOT TESTED, and publishes a bug-focused report with traces.</li>
+          </ol>
+          <p>Rules that came from real executions: visual assertions compare screenshots against Figma, money or clinical data is read back from the database, and evidence is never forged — if a path is unreachable through the product, the report says so.</p>
+          <h2>Results</h2>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>QA bem feito é rastreável. Cada caso de teste deveria apontar para um requisito, cada requisito para uma fonte (um critério de aceite, um frame do Figma, um comentário do MR, um trecho de código) e cada bug para a sua evidência. Fazer isso à mão para cada feature é lento, então a maior parte dessa rastreabilidade se perde no caminho.</p>
+          <p>A ideia central da skill: uma referência basta. Você passa uma task do Jira ou uma branch do git — ninguém precisa colar código nem requisitos — e ela descobre o resto do contexto sozinha.</p>
+          <h2>A solução</h2>
+          <p>A skill roda em quatro fases, e cada uma entrega um artefato que alimenta a próxima:</p>
+          <ol>
+            <li><strong>Investigação:</strong> lê o diff, as discussões do merge request e o arquivo do Figma, e mapeia o que não acontece no clique — crons, filas, e-mails, lembretes, expirações.</li>
+            <li><strong>Requisitos:</strong> monta uma matriz em que cada requisito carrega sua fonte e suas variáveis de estado (status, papel, feature flag, fuso horário, vazio ou cheio, primeira vez ou recorrente).</li>
+            <li><strong>Plano de testes:</strong> uma tabela em que todo requisito ganha pelo menos um caso, além de casos de controle, verificação de estado final, consistência após transições e combinações de estado em pairwise.</li>
+            <li><strong>Execução (opcional):</strong> roda os casos por prioridade com Playwright, marcados PASSED, FAILED ou NOT TESTED, e publica um relatório focado em bugs, com traces.</li>
+          </ol>
+          <p>Regras que nasceram de execuções reais: asserções visuais comparam screenshots com o Figma, dinheiro ou dado clínico é lido de volta do banco, e evidência nunca é forjada — se um caminho é inalcançável pelo produto, o relatório diz isso.</p>
+          <h2>Resultados</h2>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>1</strong><span lang="en">reference needed — a Jira task or a git branch</span><span lang="pt">referência necessária — uma task do Jira ou uma branch</span></div>
+          <div class="stat"><strong>4</strong><span lang="en">phases from investigation to a published report</span><span lang="pt">fases da investigação ao relatório publicado</span></div>
+          <div class="stat"><strong>100%</strong><span lang="en">of test cases traced back to a requirement source</span><span lang="pt">dos casos de teste rastreados até a fonte do requisito</span></div>
+        </div>
+        <p lang="en"><strong>Key lesson:</strong> evidence honesty is everything. A failure is a finding, state is never faked for a screenshot, and a prediction that doesn't happen is information about the system.</p>
+        <p lang="pt"><strong>Principal aprendizado:</strong> honestidade da evidência é tudo. Falha é achado, estado nunca é forjado para um screenshot, e uma previsão que não acontece é informação sobre o sistema.</p>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      (function () {
+        var btns = document.querySelectorAll("[data-set-lang]");
+        function set(l) {
+          document.documentElement.lang = l; localStorage.setItem("lang", l);
+          btns.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === l); });
+        }
+        btns.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.setLang); }); });
+        set(document.documentElement.lang);
+      })();
+    </script>
+  </body>
+</html>
