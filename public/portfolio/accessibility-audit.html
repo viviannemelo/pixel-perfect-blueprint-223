@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessibility Audit — Vivianne Melo</title>
+    <meta name="description" content="A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests." />
+    <meta property="og:title" content="Accessibility Audit — Vivianne Melo" />
+    <meta property="og:description" content="A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>Accessibility Audit</h1>
+        <p lang="en">A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.</p>
+        <p lang="pt">Um levantamento de acessibilidade tela por tela, na web e no mobile, transformado em um único relatório WCAG priorizado que orienta correções e retestes.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/a953773f-3e31-40c6-a51f-f18545ae4e3d/accessibility-audit-in-action.mp4" poster="/__l5e/assets-v1/f2f91ce8-ad46-455d-9089-d85de25426a9/accessibility-audit-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>How it works</h2>
+          <ul>
+            <li><strong>Survey</strong> — QA walks through the web platform and the mobile app, screen by screen, looking for accessibility barriers: low-contrast text, buttons with no name for screen readers, invisible keyboard focus, touch targets that are too small and images without alternative text.</li>
+            <li><strong>Report</strong> — every problem is recorded in a single report with the screen where it appears, the WCAG rule it violates and its severity (High, Medium, Low).</li>
+            <li><strong>Handoff</strong> — the report goes to the development team, and each item becomes a ticket ready to be fixed.</li>
+            <li><strong>Validation</strong> — when the fixes arrive, QA uses the report itself to re-test. Each fix is checked directly against a known, documented problem.</li>
+          </ul>
+          <h2>What this solves</h2>
+          <p>Before, accessibility problems showed up scattered, in the middle of other tests. Every re-test started with a new hunt: find the problem, document it, and only then validate it. With the centralized survey, each problem is found and described only once. The dev team receives the full, prioritized scope, and QA validates fixes following a known list. This shortens validation time and keeps any item from slipping through unnoticed.</p>
+        </div>
+        <div lang="pt">
+          <h2>Como funciona</h2>
+          <ul>
+            <li><strong>Levantamento</strong> — o QA percorre a plataforma web e o aplicativo mobile, tela por tela, procurando barreiras de acessibilidade: texto com contraste baixo, botões sem nome para leitores de tela, foco invisível na navegação por teclado, áreas de toque pequenas demais e imagens sem texto alternativo.</li>
+            <li><strong>Relatório</strong> — cada problema é registrado em um único relatório com a tela onde aparece, a regra WCAG que viola e a severidade (High, Medium, Low).</li>
+            <li><strong>Reporte</strong> — o relatório vai para o time de desenvolvimento, e cada item vira um ticket pronto para ser corrigido.</li>
+            <li><strong>Validação</strong> — quando as correções chegam, o QA usa o próprio relatório para refazer o teste. Cada correção é conferida diretamente contra um problema já conhecido e documentado.</li>
+          </ul>
+          <h2>O que isso resolve</h2>
+          <p>Antes, os problemas de acessibilidade apareciam de forma solta, no meio de outros testes. Cada reteste começava com uma nova busca: achar o problema, documentar e só então validar. Com o levantamento centralizado, o problema é encontrado e descrito uma única vez. O time de dev recebe o escopo completo e priorizado, e o QA valida as correções seguindo uma lista conhecida. Isso reduz o tempo de validação e evita que algum item passe despercebido.</p>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

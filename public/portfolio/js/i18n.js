@@ -26,6 +26,8 @@
     "A board and a drafting skill that keep the customer article platform up to date with every release.": "Um quadro e uma skill de rascunho que mantêm a plataforma de artigos dos clientes sempre em dia a cada release.",
     "Internal Knowledge Base": "Base de Conhecimento Interna",
     "Internal QA Metrics": "Métricas Internas de QA",
+    "Accessibility Audit": "Auditoria de Acessibilidade",
+    "A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.": "Um levantamento de acessibilidade tela por tela, na web e no mobile, transformado em um único relatório WCAG priorizado que orienta correções e retestes.",
     "A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.": "Um painel com três métricas de qualidade, calculadas sobre os bugs reais do Jira, para que o time de QA saiba onde está e para onde precisa ir.",
     "A searchable base that gathers the company's scattered knowledge in one place and keeps itself up to date.": "Uma base pesquisável que reúne em um só lugar o conhecimento espalhado pela empresa e se mantém atualizada sozinha.",
     "Short description of what this project is and what you did.": "Breve descrição do projeto e da solução desenvolvida.",
