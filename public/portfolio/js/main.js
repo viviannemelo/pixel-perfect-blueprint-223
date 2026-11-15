@@ -108,7 +108,7 @@
       if (!cards.length) return;
       if (manual) playing = false;
       state.index = (index + cards.length) % cards.length;
-      track.scrollTo({ left: cards[state.index].offsetLeft - track.offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
+      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
       update();
     }
     root.addEventListener("click", event => {
@@ -128,7 +128,7 @@
     track.addEventListener("scroll", () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const distances = cards.map(card => Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft));
+        const distances = cards.map(card => Math.abs(card.offsetLeft - track.scrollLeft));
         state.index = distances.indexOf(Math.min(...distances)); update();
       });
     }, options);
@@ -140,7 +140,7 @@
       if (playing && visible && !hovered && !document.hidden && !root.contains(document.activeElement)) go(state.index + 1);
     }, 5500);
     update();
-    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft - track.offsetLeft || 0, behavior: "instant" }));
+    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
     const grid = $("#gallery");
