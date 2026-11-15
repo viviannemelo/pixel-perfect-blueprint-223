@@ -9,5 +9,5 @@
 - [x] Prepare automatic GitHub Pages publishing for the static portfolio and document the required GitHub setup.
 - [x] Fix images and videos on GitHub Pages and verify an exported site.
 - [x] Correct email and LinkedIn links and show every published project in the home carousel with same-tab navigation.
-- [ ] Add Accessibility Audit with extracted cover, video, bilingual page, and verify the project flow.
+- [x] Add Accessibility Audit with extracted cover, video, bilingual page, and verify the project flow.
 - [ ] Add a working résumé download when the user supplies the file.
