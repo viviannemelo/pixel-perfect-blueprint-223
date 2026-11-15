@@ -69,7 +69,6 @@
     const languageBlock = node.parentElement.closest("[lang]");
     if (!node.parentElement.closest("script, [data-i18n-html]") && (!languageBlock || languageBlock === document.documentElement)) staticText.push([node, node.textContent]);
   }
-  let selectedCategory = "All";
   const carousels = new Map();
   function drawCarousel(root, projects) {
     const previous = carousels.get(root.id);
@@ -143,12 +142,9 @@
     requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft - track.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
-    const grid = $("#gallery"), filters = $("#filters");
-    if (!grid || !filters) return;
-    const cats = ["All", ...new Set(PROJECTS.map(p => p.category))];
-    filters.setAttribute("aria-label", t("Filter by category"));
-    filters.innerHTML = cats.map(c => `<button class="chip" data-category="${c}" aria-pressed="${c === selectedCategory}">${t(c)}</button>`).join("");
-    drawCarousel(grid, PROJECTS.filter(p => selectedCategory === "All" || p.category === selectedCategory));
+    const grid = $("#gallery");
+    if (!grid) return;
+    drawCarousel(grid, PROJECTS);
     observe();
   }
   function setLanguage(value) {
@@ -171,14 +167,6 @@
     if ($("#latest-posts")) $("#latest-posts").innerHTML = sorted.slice(0, 3).map(postCard).join("");
     if ($("#post-list")) $("#post-list").innerHTML = sorted.map(postCard).join("");
     observe();
-  }
-  if (page === "projects") {
-    $("#filters").addEventListener("click", e => {
-      const chip = e.target.closest("[data-category]");
-      if (!chip) return;
-      selectedCategory = chip.dataset.category;
-      drawProjects();
-    });
   }
   setLanguage(language);
   window.addEventListener("storage", event => { if (event.key === "lang") setLanguage(event.newValue); });
