@@ -1,0 +1,2 @@
+- [ ] Add shared language selection to the top menu and translate all portfolio pages.
+- [ ] Verify language persistence, project pages, blog, and mobile navigation.
