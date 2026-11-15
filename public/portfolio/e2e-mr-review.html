@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E2E MR Review — Vivianne Melo</title>
+    <meta name="description" content="An AI skill that reviews only the E2E tests in a merge request, like a senior automation QA would: six rules, verified findings and inline comments with fixes." />
+    <meta property="og:title" content="E2E MR Review — Vivianne Melo" />
+    <meta property="og:description" content="An AI skill that reviews only the E2E tests in a merge request, like a senior automation QA would: six rules, verified findings and inline comments with fixes." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="project">
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container">
+      <div class="project-top">
+        <a class="back" href="projects.html"><span lang="en">← All projects</span><span lang="pt">← Todos os projetos</span></a>
+      </div>
+      <div class="page-head" style="padding-top:2rem">
+        <p class="meta">AI Engineering · 2026</p>
+        <h1>E2E MR Review</h1>
+        <p lang="en">An AI skill that reviews only the E2E tests in a merge request, like a senior automation QA would: six rules, verified findings and inline comments with ready fixes.</p>
+        <p lang="pt">Uma skill de IA que revisa só os testes E2E de um merge request, como faria um QA sênior de automação: seis regras, achados verificados e comentários na linha exata com a correção pronta.</p>
+      </div>
+      <video class="project-video" src="/__l5e/assets-v1/551adde2-79ce-411b-b526-65098b014ee0/e2e-mr-review-in-action.mp4" poster="/__l5e/assets-v1/5da1281d-1fe2-4728-81aa-8ef26464df2c/e2e-mr-review-cover.jpg" controls autoplay muted loop playsinline></video>
+      <article class="prose">
+        <div lang="en">
+          <h2>The problem</h2>
+          <p>A badly written E2E test can pass while the feature is broken, or fail randomly in CI. The most common causes are a fixed waitForTimeout, a selector tied to the HTML structure or a check done only through the API. These problems slip easily through a regular code review, because the code "works". Later they become flaky tests that nobody trusts.</p>
+          <h2>How it works</h2>
+          <p>You call /e2e-mr-review with the MR number and the skill reviews only the E2E tests, as a senior automation QA would:</p>
+          <ul>
+            <li><strong>Reads the diff.</strong> Fetches the MR's changes.</li>
+            <li><strong>Filters the scope.</strong> Ignores product code, unit tests and lockfiles, keeping only E2E specs, helpers, fixtures and configs. It also reads the project's READMEs and conventions so it doesn't flag as a problem something the team does on purpose.</li>
+            <li><strong>Reviews against six rules:</strong> locators; waits and synchronization; design patterns; anti-flaky practices; test data; validation through the UI.</li>
+            <li><strong>Verifies each finding.</strong> Checks that the line really belongs to the MR, that the quoted code is correct and that the suggested fix works in the project. It discards what doesn't hold up and gives the rest a severity: Blocker or Improvement, with high, medium or low priority.</li>
+            <li><strong>Comments on the MR.</strong> Posts each problem on the exact line, with the cause and a suggested fix, plus a summary note with the verdict (approve, approve with improvements or request changes). With --dry-run, it shows the review only in the chat. The skill never edits code, never approves and never merges.</li>
+          </ul>
+          <h2>The result</h2>
+          <p>The problems that make a test flaky or misleading are caught before the merge, with an explanation and a ready fix. That way, the MR's author learns the pattern instead of just receiving a "fix this".</p>
+        </div>
+        <div lang="pt">
+          <h2>O problema</h2>
+          <p>Um teste E2E mal escrito pode passar com a funcionalidade quebrada, ou falhar aleatoriamente no CI. As causas mais comuns são um waitForTimeout fixo, um seletor preso à estrutura do HTML ou uma verificação feita só pela API. Esses problemas passam fácil num code review comum, porque o código "funciona". Depois viram testes instáveis que ninguém confia.</p>
+          <h2>Como funciona</h2>
+          <p>Você chama /e2e-mr-review com o número do MR e a skill revisa só os testes E2E, como faria um QA sênior de automação:</p>
+          <ul>
+            <li><strong>Lê o diff.</strong> Busca as mudanças do MR.</li>
+            <li><strong>Filtra o escopo.</strong> Ignora código de produto, testes unitários e lockfile e fica só com specs, helpers, fixtures e configs de E2E. Também lê os READMEs e as convenções do projeto para não apontar como problema algo que o time já faz de propósito.</li>
+            <li><strong>Revisa contra seis regras:</strong> locators; waits e sincronização; padrões de design; práticas anti-flaky; dados de teste; validação pela tela.</li>
+            <li><strong>Confere cada achado.</strong> Verifica se a linha é mesmo do MR, se o código citado está certo e se a correção sugerida funciona no projeto. Descarta o que não se sustenta e dá uma severidade ao resto: Blocker ou Improvement, com prioridade alta, média ou baixa.</li>
+            <li><strong>Comenta no MR.</strong> Posta cada problema na linha exata, com a causa e uma sugestão de correção, mais uma nota de resumo com o veredito (aprovar, aprovar com melhorias ou pedir mudanças). Com --dry-run, mostra a revisão só no chat. A skill nunca edita código, nunca aprova e nunca faz merge.</li>
+          </ul>
+          <h2>O resultado</h2>
+          <p>Os problemas que tornam um teste instável ou enganoso são pegos antes do merge, com uma explicação e uma correção pronta. Assim, o autor do MR aprende o padrão em vez de só receber um "arruma isso".</p>
+        </div>
+      </article>
+    </main>
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

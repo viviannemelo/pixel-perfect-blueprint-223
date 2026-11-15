@@ -29,6 +29,8 @@
     "Accessibility Audit": "Auditoria de Acessibilidade",
     "E2E Triage": "Triagem de E2E",
     "An AI skill that triages every E2E pipeline failure: filters noise, reruns, classifies, fixes test errors and reports a short summary.": "Uma skill de IA que faz a triagem de cada falha do pipeline de E2E: filtra ruído, roda de novo, classifica, corrige erros de teste e reporta um resumo curto.",
+    "E2E MR Review": "Revisão de MR de E2E",
+    "An AI skill that reviews only the E2E tests in a merge request against six rules, with verified findings and inline fixes.": "Uma skill de IA que revisa só os testes E2E de um merge request contra seis regras, com achados verificados e correções na linha exata.",
     "A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.": "Um levantamento de acessibilidade tela por tela, na web e no mobile, transformado em um único relatório WCAG priorizado que orienta correções e retestes.",
     "A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.": "Um painel com três métricas de qualidade, calculadas sobre os bugs reais do Jira, para que o time de QA saiba onde está e para onde precisa ir.",
     "A searchable base that gathers the company's scattered knowledge in one place and keeps itself up to date.": "Uma base pesquisável que reúne em um só lugar o conhecimento espalhado pela empresa e se mantém atualizada sozinha.",
