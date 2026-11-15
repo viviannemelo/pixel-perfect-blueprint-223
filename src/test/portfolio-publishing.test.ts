@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error The export script is plain JavaScript for GitHub runners.
 import { localizeMedia } from '../../scripts/export-portfolio.mjs';
 
 const profile = runInNewContext(`${readFileSync('public/portfolio/js/data.js', 'utf8')}; ({ SITE, PROJECTS })`);

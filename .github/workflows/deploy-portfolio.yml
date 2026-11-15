@@ -35,6 +35,9 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
+      - name: Export images and videos for GitHub Pages
+        run: node scripts/export-portfolio.mjs "$RUNNER_TEMP/portfolio-pages"
+
       - name: Upload the static portfolio
         uses: actions/upload-pages-artifact@v5
         with:
