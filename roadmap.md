@@ -6,3 +6,4 @@
 - [x] Add Customer Articles every Release with uploaded cover, video, bilingual page, and verify the project flow.
 - [x] Add Internal Knowledge Base with extracted cover, video, bilingual page, and verify the project flow.
 - [x] Add Internal QA Metrics with extracted cover, video, bilingual page, and verify the project flow.
+- [x] Prepare automatic GitHub Pages publishing for the static portfolio and document the required GitHub setup.
