@@ -125,7 +125,9 @@ section { padding: 4rem 0; }
   .carousel-track .project { flex-basis: 86%; }
   .carousel-track::after { flex-basis: calc(14% - 1.5rem); }
   .carousel-track { gap: 1rem; }
-  .carousel-controls { gap: .5rem; }
+  .carousel-controls { gap: .5rem; flex-wrap: wrap; }
+  .carousel-dots { flex-basis: 100%; }
+  .carousel-count { margin-right: auto; }
   .carousel-dot { width: 22px; }
   .carousel-button { width: 36px; height: 36px; }
   .carousel-arrows { gap: .25rem; }

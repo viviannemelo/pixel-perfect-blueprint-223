@@ -32,6 +32,8 @@ npm run dev
 
 A automação em `.github/workflows/deploy-portfolio.yml` publica somente o site estático de `public/portfolio`, sem precisar gerar ou enviar ZIPs. O projeto completo continua sincronizado com o Lovable; a publicação não usa o aplicativo de pré-visualização.
 
+Antes de publicar, `scripts/export-portfolio.mjs` baixa as mídias referenciadas em `src/assets/*.asset.json` para uma pasta temporária e troca os endereços do Lovable por caminhos locais no pacote publicado. Isso inclui as capas e os vídeos no GitHub Pages sem adicionar os arquivos grandes ao repositório. Uma mídia indisponível interrompe a publicação, evitando publicar um site com imagens ausentes.
+
 1. No Lovable, abra **Project settings → Git → Connect GitHub** para criar e sincronizar um novo repositório. No celular, use **Chat → ... → Settings → Git**. Não envie o ZIP para outro repositório esperando que ele seja sincronizado.
 2. Mantenha a sincronização do Lovable na **branch padrão** desse repositório: a automação só publica essa branch, nunca branches de rascunhos.
 3. No GitHub, abra o repositório em **Settings → Pages → Build and deployment → Source** e escolha **GitHub Actions**. No celular, use o navegador e, se necessário, ative a versão para computador.

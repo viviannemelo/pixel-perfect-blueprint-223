@@ -5,6 +5,8 @@ on:
     branches: ["**"]
     paths:
       - "public/portfolio/**"
+      - "src/assets/**"
+      - "scripts/export-portfolio.mjs"
       - ".github/workflows/deploy-portfolio.yml"
   workflow_dispatch:
 
@@ -33,10 +35,13 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
+      - name: Export images and videos for GitHub Pages
+        run: node scripts/export-portfolio.mjs "$RUNNER_TEMP/portfolio-pages"
+
       - name: Upload the static portfolio
         uses: actions/upload-pages-artifact@v5
         with:
-          path: public/portfolio
+          path: ${{ runner.temp }}/portfolio-pages
 
       - name: Deploy to GitHub Pages
         id: deployment

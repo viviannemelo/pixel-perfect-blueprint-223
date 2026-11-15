@@ -40,7 +40,8 @@
       <div><p class="footer-brand">${SITE.name}</p><p class="footer-tagline">${t("Creativity for Quality Solutions")}</p></div>
       <ul><li><a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="mailto:${SITE.email}">Email</a></li></ul>
+      <li><a href="mailto:${SITE.email}">Email</a></li>
+      ${SITE.resume ? `<li><a href="${SITE.resume}" download>${t("Download résumé")}</a></li>` : ""}</ul>
     </div>`;
 
   }
@@ -51,7 +52,7 @@
       <a href="${p.link}" class="project-media">
         ${p.image ? `<img src="${p.image}" alt="${t(p.title)}" loading="lazy">` : `<span aria-hidden="true">${p.title.charAt(0)}</span>`}
       </a>
-      <div class="card-body"><p class="meta">${t(p.category)} · ${p.year}</p><h3>${t(p.title)}</h3><p>${t(p.description)}</p></div>
+      <a href="${p.link}" class="card-body"><p class="meta">${t(p.category)} · ${p.year}</p><h3>${t(p.title)}</h3><p>${t(p.description)}</p></a>
     </article>`;
   const postCard = original => { const p = localizedPost(original, language); return `
     <article class="card post-card reveal">
@@ -107,7 +108,7 @@
       if (!cards.length) return;
       if (manual) playing = false;
       state.index = (index + cards.length) % cards.length;
-      track.scrollTo({ left: cards[state.index].offsetLeft - track.offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
+      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
       update();
     }
     root.addEventListener("click", event => {
@@ -127,7 +128,7 @@
     track.addEventListener("scroll", () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const distances = cards.map(card => Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft));
+        const distances = cards.map(card => Math.abs(card.offsetLeft - track.scrollLeft));
         state.index = distances.indexOf(Math.min(...distances)); update();
       });
     }, options);
@@ -139,7 +140,7 @@
       if (playing && visible && !hovered && !document.hidden && !root.contains(document.activeElement)) go(state.index + 1);
     }, 5500);
     update();
-    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft - track.offsetLeft || 0, behavior: "instant" }));
+    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
     const grid = $("#gallery");
@@ -158,7 +159,7 @@
     document.querySelectorAll("[data-i18n-html]").forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
     document.querySelectorAll("[data-site]").forEach(el => el.textContent = t(SITE[el.dataset.site]));
     drawHeader(); drawFooter();
-    if ($("#featured-projects")) drawCarousel($("#featured-projects"), PROJECTS.slice(0, 3));
+    if ($("#featured-projects")) drawCarousel($("#featured-projects"), PROJECTS);
     drawProjects(); drawPosts();
     const titles = { home: "Vivianne Melo — QA Engineer & AI SDET", projects: "Projects — Vivianne Melo", blog: "Blog — Vivianne Melo" };
     if (titles[page]) document.title = page === "home" ? `Vivianne Melo — ${t(SITE.role)}` : `${t(page === "projects" ? "Projects" : "Blog")} — Vivianne Melo`;
