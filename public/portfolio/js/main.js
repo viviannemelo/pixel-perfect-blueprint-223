@@ -69,7 +69,6 @@
     const languageBlock = node.parentElement.closest("[lang]");
     if (!node.parentElement.closest("script, [data-i18n-html]") && (!languageBlock || languageBlock === document.documentElement)) staticText.push([node, node.textContent]);
   }
-  let selectedCategory = "All";
   const carousels = new Map();
   function drawCarousel(root, projects) {
     const previous = carousels.get(root.id);
@@ -168,14 +167,6 @@
     if ($("#latest-posts")) $("#latest-posts").innerHTML = sorted.slice(0, 3).map(postCard).join("");
     if ($("#post-list")) $("#post-list").innerHTML = sorted.map(postCard).join("");
     observe();
-  }
-  if (page === "projects") {
-    $("#filters").addEventListener("click", e => {
-      const chip = e.target.closest("[data-category]");
-      if (!chip) return;
-      selectedCategory = chip.dataset.category;
-      drawProjects();
-    });
   }
   setLanguage(language);
   window.addEventListener("storage", event => { if (event.key === "lang") setLanguage(event.newValue); });
