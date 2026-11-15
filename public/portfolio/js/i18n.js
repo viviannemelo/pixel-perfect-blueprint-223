@@ -24,6 +24,8 @@
     "From one Jira task to a published QA report: the AI investigates, writes requirements, plans tests and executes them with Playwright.": "De uma tarefa no Jira a um relatório de QA publicado: a IA investiga, escreve requisitos, planeja testes e os executa com Playwright.",
     "A release gate that tests every change before deploy and says whether the release can proceed.": "Um portão de release que testa cada mudança antes do deploy e diz se o release pode seguir.",
     "A board and a drafting skill that keep the customer article platform up to date with every release.": "Um quadro e uma skill de rascunho que mantêm a plataforma de artigos dos clientes sempre em dia a cada release.",
+    "Internal Knowledge Base": "Base de Conhecimento Interna",
+    "A searchable base that gathers the company's scattered knowledge in one place and keeps itself up to date.": "Uma base pesquisável que reúne em um só lugar o conhecimento espalhado pela empresa e se mantém atualizada sozinha.",
     "Short description of what this project is and what you did.": "Breve descrição do projeto e da solução desenvolvida.",
     "Project Three [PLACEHOLDER]": "Projeto três [EXEMPLO]", "Project Four [PLACEHOLDER]": "Projeto quatro [EXEMPLO]",
     "Project Five [PLACEHOLDER]": "Projeto cinco [EXEMPLO]", "Project Six [PLACEHOLDER]": "Projeto seis [EXEMPLO]",
