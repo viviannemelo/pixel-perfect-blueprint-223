@@ -9,7 +9,7 @@
     "Featured projects": "Projetos em destaque", "View all →": "Ver todos →",
     "Previous project": "Projeto anterior", "Next project": "Próximo projeto",
     "Pause carousel": "Pausar carrossel", "Play carousel": "Reproduzir carrossel",
-    "Go to project": "Ir para o projeto",
+    "Go to project": "Ir para o projeto", "Download résumé": "Baixar currículo",
     "Latest posts": "Artigos recentes", "All posts →": "Todos os artigos →",
     "A collection of visual work. Pick a category to filter.": "Uma seleção de projetos e soluções de qualidade.",
     "My articles on Medium about QA, test automation and AI.": "Meus artigos no Medium sobre QA, automação de testes e IA.",

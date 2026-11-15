@@ -8,9 +8,10 @@ const SITE = {
   name: "Vivianne Melo",
   role: "QA Engineer & AI SDET",
   intro: "I build solutions to improve quality assurance for products and processes.",
-  email: "you@example.com",                  // [PLACEHOLDER]
+  email: "viviannemmelo@gmail.com",
   github: "https://github.com/your-username",// [PLACEHOLDER]
-  linkedin: "https://linkedin.com/in/your-profile" // [PLACEHOLDER]
+  linkedin: "https://linkedin.com/in/viviannemelo",
+  resume: null // Add the uploaded résumé URL when the file is supplied.
 };
 
 /* --- Visual projects ---
@@ -25,8 +26,6 @@ const PROJECTS = [
   { title: "Customer Articles every Release", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/6c000216-6edd-46af-864e-3848716469d0/customer-articles-cover.jpg", hue: 15, description: "A board and a drafting skill that keep the customer article platform up to date with every release.", link: "customer-articles.html" },
   { title: "Internal Knowledge Base", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/04838157-06aa-4e99-8fde-0468f4371a18/knowledge-base-cover.jpg", hue: 15, description: "A searchable base that gathers the company's scattered knowledge in one place and keeps itself up to date.", link: "knowledge-base.html" },
   { title: "Internal QA Metrics", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/6568cdd1-5b0c-413b-ba65-4df29bb8b1d9/qa-metrics-cover.jpg", hue: 15, description: "A dashboard with three quality metrics, calculated from real Jira bugs, so the QA team knows where it stands and where it needs to go.", link: "qa-metrics.html" },
-  { title: "Project Five [PLACEHOLDER]", category: "Branding", year: 2025, image: "", hue: 260, description: "Short description of what this project is and what you did.", link: "#" },
-  { title: "Project Six [PLACEHOLDER]", category: "Illustration", year: 2024, image: "", hue: 15, description: "Short description of what this project is and what you did.", link: "#" }
 ];
 
 /* --- Blog posts ---
