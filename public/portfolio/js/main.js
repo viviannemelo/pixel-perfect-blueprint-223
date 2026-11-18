@@ -75,6 +75,8 @@
   function drawCarousel(root, projects) {
     const previous = carousels.get(root.id);
     const initial = Math.min(previous?.index || 0, Math.max(0, projects.length - 1));
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    let playing = previous ? previous.playing && !reduced.matches : !reduced.matches && projects.length > 1;
     previous?.cleanup();
     root.className = "project-carousel";
     root.setAttribute("role", "region");
@@ -82,24 +84,26 @@
     root.setAttribute("aria-label", t("Projects"));
     const arrow = direction => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${direction === "previous" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}"/></svg>`;
     root.innerHTML = `<div class="carousel-track" tabindex="0" aria-label="${t("Projects")}">${projects.map(projectCard).join("")}</div>
-      <div class="carousel-controls"><div class="carousel-dots">${projects.map((p, i) => `<button class="carousel-dot" data-slide="${i}" aria-label="${t("Go to project")}: ${t(p.title)}" title="${t(p.title)}"></button>`).join("")}</div>
-      <span class="carousel-count" aria-live="polite"></span><div class="carousel-arrows">
+      <div class="carousel-controls"><div class="carousel-progress" aria-hidden="true"><span></span></div><div class="carousel-dots">${projects.map((p, i) => `<button class="carousel-dot" data-slide="${i}" aria-label="${t("Go to project")}: ${t(p.title)}" title="${t(p.title)}"></button>`).join("")}</div>
+      <span class="carousel-count"></span><div class="carousel-arrows">
       <button class="btn btn-ghost carousel-button" data-action="previous" aria-label="${t("Previous project")}" title="${t("Previous project")}">${arrow("previous")}</button>
       <button class="btn btn-ghost carousel-button" data-action="play" aria-label="${t("Pause carousel")}" title="${t("Pause carousel")}"></button>
       <button class="btn btn-ghost carousel-button" data-action="next" aria-label="${t("Next project")}" title="${t("Next project")}">${arrow("next")}</button></div></div>`;
     const track = $(".carousel-track", root), cards = [...track.children];
     const controller = new AbortController(), options = { signal: controller.signal };
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let playing = !reduced.matches && projects.length > 1;
-    let hovered = false, visible = false, frame = 0;
-    const state = { index: initial, cleanup: () => { controller.abort(); clearInterval(timer); cancelAnimationFrame(frame); observer.disconnect(); } };
+    let hovered = false, visible = false, frame = 0, clock = 0, elapsed = 0, lastTime = 0, direction = 1, settlingUntil = 0;
+    const duration = 6500;
+    const progress = $(".carousel-progress span", root);
+    const state = { index: initial, playing, cleanup: () => { controller.abort(); cancelAnimationFrame(frame); cancelAnimationFrame(clock); observer.disconnect(); resize.disconnect(); } };
     carousels.set(root.id, state);
     cards.forEach(card => card.classList.add("visible"));
     function update() {
+      state.playing = playing;
       cards.forEach((card, i) => card.classList.toggle("is-active", i === state.index));
       root.querySelectorAll("[data-slide]").forEach((dot, i) => dot.setAttribute("aria-current", i === state.index ? "true" : "false"));
       $(".carousel-count", root).textContent = `${String(state.index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
       const play = $('[data-action="play"]', root);
+      play.setAttribute("aria-pressed", String(playing));
       play.setAttribute("aria-label", t(playing ? "Pause carousel" : "Play carousel"));
       play.title = t(playing ? "Pause carousel" : "Play carousel");
       play.innerHTML = playing ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>' : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
@@ -108,8 +112,11 @@
     function go(index, manual = false) {
       if (!cards.length) return;
       if (manual) playing = false;
+      const wrapping = index < 0 || index >= cards.length;
       state.index = (index + cards.length) % cards.length;
-      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
+      elapsed = 0;
+      settlingUntil = performance.now() + 800;
+      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: reduced.matches || wrapping ? "instant" : "smooth" });
       update();
     }
     root.addEventListener("click", event => {
@@ -118,11 +125,12 @@
       if (button.dataset.slide !== undefined) go(Number(button.dataset.slide), true);
       if (button.dataset.action === "previous") go(state.index - 1, true);
       if (button.dataset.action === "next") go(state.index + 1, true);
-      if (button.dataset.action === "play") { playing = !playing; update(); }
+      if (button.dataset.action === "play") { playing = !playing; elapsed = 0; update(); }
     }, options);
     track.addEventListener("keydown", event => {
-      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-      event.preventDefault(); go(state.index + (event.key === "ArrowRight" ? 1 : -1), true);
+      if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      go(event.key === "Home" ? 0 : event.key === "End" ? cards.length - 1 : state.index + (event.key === "ArrowRight" ? 1 : -1), true);
     }, options);
     track.addEventListener("pointerdown", () => { playing = false; update(); }, options);
     track.addEventListener("wheel", () => { playing = false; update(); }, options);
@@ -130,23 +138,44 @@
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const distances = cards.map(card => Math.abs(card.offsetLeft - track.scrollLeft));
-        state.index = distances.indexOf(Math.min(...distances)); update();
+        const nearest = distances.indexOf(Math.min(...distances));
+        if (nearest !== state.index) { state.index = nearest; elapsed = 0; update(); }
       });
     }, options);
     root.addEventListener("mouseenter", () => hovered = true, options);
     root.addEventListener("mouseleave", () => hovered = false, options);
-    const observer = new IntersectionObserver(entries => visible = entries[0].isIntersecting, { threshold: .4 });
+    const observer = new IntersectionObserver(entries => visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .35, { threshold: [0, .35] });
     observer.observe(root);
-    const timer = setInterval(() => {
-      if (playing && visible && !hovered && !document.hidden && !root.contains(document.activeElement)) go(state.index + 1);
-    }, 5500);
+    const resize = new ResizeObserver(() => {
+      if (!cards.length) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.style.setProperty("--tail-space", `${Math.max(0, track.clientWidth - cards[0].offsetWidth - gap)}px`);
+      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: "instant" });
+    });
+    resize.observe(track);
+    reduced.addEventListener("change", () => { if (reduced.matches) { playing = false; elapsed = 0; update(); } }, options);
+    function tick(now) {
+      const active = playing && visible && !hovered && !document.hidden && !track.contains(document.activeElement) && now >= settlingUntil;
+      if (active && lastTime) elapsed += Math.min(now - lastTime, 100);
+      lastTime = now;
+      progress.style.transform = `scaleX(${elapsed / duration})`;
+      root.dataset.running = String(active);
+      if (elapsed >= duration) {
+        if (state.index === cards.length - 1) direction = -1;
+        if (state.index === 0) direction = 1;
+        go(state.index + direction);
+      }
+      clock = requestAnimationFrame(tick);
+    }
+    clock = requestAnimationFrame(tick);
     update();
-    requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft || 0, behavior: "instant" }));
+    frame = requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
     const grid = $("#gallery");
     if (!grid) return;
-    drawCarousel(grid, PROJECTS);
+    grid.className = "grid project-grid";
+    grid.innerHTML = PROJECTS.map(projectCard).join("");
     observe();
   }
   function setLanguage(value) {
