@@ -29,6 +29,7 @@ const PROJECTS = [
   { title: "Accessibility Audit", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/f2f91ce8-ad46-455d-9089-d85de25426a9/accessibility-audit-cover.jpg", hue: 15, description: "A screen-by-screen accessibility survey of web and mobile, turned into a single prioritized WCAG report that guides fixes and re-tests.", link: "accessibility-audit.html" },
   { title: "E2E Triage", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/afe4a527-de29-473b-a466-be6060e014bb/e2e-triage-cover.jpg", hue: 15, description: "An AI skill that triages every E2E pipeline failure: filters noise, reruns, classifies, fixes test errors and reports a short summary.", link: "e2e-triage.html" },
   { title: "E2E MR Review", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/5da1281d-1fe2-4728-81aa-8ef26464df2c/e2e-mr-review-cover.jpg", hue: 15, description: "An AI skill that reviews only the E2E tests in a merge request against six rules, with verified findings and inline fixes.", link: "e2e-mr-review.html" },
+  { title: "Feedback schedule for the product team", category: "AI Engineering", year: 2026, image: "/__l5e/assets-v1/1d3b0bdc-dfa6-4df4-86c0-3803e70d2ec2/customer-requests-cover.jpg", hue: 15, description: "An automation that records every customer request in support conversations, filters what is already covered and sends the product team one grouped e-mail a day.", link: "feedback-schedule.html" },
 ];
 
 /* --- Blog posts ---

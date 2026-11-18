@@ -12,3 +12,4 @@
 - [x] Add Accessibility Audit with extracted cover, video, bilingual page, and verify the project flow.
 - [ ] Add a working résumé download when the user supplies the file.
 - [x] Keep Medium articles automatically refreshed in the browser and GitHub Pages publication.
+- [x] Add Feedback schedule for the product team with extracted cover, video, bilingual page, and verify the project flow.
