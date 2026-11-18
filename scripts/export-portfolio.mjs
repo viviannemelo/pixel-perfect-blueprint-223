@@ -35,7 +35,7 @@ export async function exportPortfolio(destination) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const file = path.join(directory, entry.name);
       if (entry.isDirectory()) { await rewrite(file); continue; }
-      if (!/\.(html|js)$/.test(entry.name)) continue;
+      if (!/\.(html|js|json)$/.test(entry.name)) continue;
       const source = localizeMedia(await readFile(file, 'utf8'), assets);
       if (source.includes('/__l5e/assets-v1/')) throw new Error(`Unmapped media in ${file}`);
       await writeFile(file, source);

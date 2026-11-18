@@ -22,6 +22,18 @@ class MediumFeedTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             feed.parse_feed('<rss><channel/></rss>')
 
+    def test_extracts_the_article_cover_not_the_tracking_pixel(self):
+        xml = '''<rss><channel><item><title>Cover article</title>
+        <link>https://medium.com/@viviannemelo/cover</link><pubDate>Wed, 18 Nov 2026 11:00:00 GMT</pubDate>
+        <description>&lt;img src="https://medium.com/_/stat?event=view"&gt;&lt;img src="https://cdn-images-1.medium.com/max/1024/cover.png"&gt;&lt;p&gt;Article text&lt;/p&gt;</description>
+        </item></channel></rss>'''
+        self.assertEqual(feed.parse_feed(xml)[0]['imageSource'], 'https://cdn-images-1.medium.com/max/1024/cover.png')
+
+    def test_articles_without_cover_do_not_use_tracking_images(self):
+        parser = feed.PlainText()
+        parser.feed('<img src="https://medium.com/_/stat?event=view">')
+        self.assertEqual(parser.image, '')
+
 
 if __name__ == '__main__':
     unittest.main()

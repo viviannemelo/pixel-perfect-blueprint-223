@@ -15,3 +15,4 @@
 - Deploy only `public/portfolio` to GitHub Pages through the Pages artifact workflow on the repository default branch, so the static site publishes independently of the TanStack preview and draft branches cannot replace it.
 - Stage the static portfolio with `scripts/export-portfolio.mjs`, downloading pointer media into the Pages artifact and rewriting URLs to relative paths, because Lovable asset paths do not resolve on external hosts; keep media binaries out of the repository.
 - Refresh Medium via the shared browser renderer and a scheduled RSS snapshot in the Pages artifact; retain saved posts on feed failures so publishing does not depend on a browser-only feed proxy.
+- Extract Medium covers from trusted feed image hosts, serve imported covers through asset pointers and download future covers into the Pages artifact; preserve saved images during live text refreshes and omit tracking pixels or invented covers.

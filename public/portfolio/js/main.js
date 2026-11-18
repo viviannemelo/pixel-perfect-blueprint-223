@@ -57,6 +57,7 @@
     </article>`;
   const postCard = original => { const p = localizedPost(original, language); return `
     <article class="card post-card reveal">
+      ${p.image ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="post-media" tabindex="-1" aria-hidden="true"><img src="${escapeHTML(p.image)}" alt="" loading="lazy" decoding="async"></a>` : ""}
       <a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="card-body">
         <p class="meta"><time datetime="${escapeHTML(p.date)}">${fmt(p.date)}</time> · ${p.tags.map(tag => escapeHTML(t(tag))).join(", ")}</p>
         <h3>${escapeHTML(t(p.title))}</h3><p>${escapeHTML(p.excerpt)}</p><span class="read-more">${t("Read on Medium →")}</span>
@@ -209,7 +210,7 @@
       const valid = posts.filter(p => typeof p.title === "string" && /^https:\/\/medium\.com\//.test(p.link) && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Array.isArray(p.tags) && typeof p.excerpt === "string");
       if (!valid.length) return;
       const combined = new Map(sorted.map(p => [p.link, p]));
-      valid.forEach(p => combined.set(p.link, p));
+      valid.forEach(p => combined.set(p.link, { ...combined.get(p.link), ...p, image: p.image || combined.get(p.link)?.image || "" }));
       sorted = [...combined.values()].sort((a, b) => b.date.localeCompare(a.date));
       drawPosts();
     }

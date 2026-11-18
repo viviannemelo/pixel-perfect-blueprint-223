@@ -15,3 +15,4 @@
 - [x] Add Feedback schedule for the product team with extracted cover, video, bilingual page, and verify the project flow.
 - [x] Display Projects as a card grid and refine the home carousel animation and navigation.
 - [x] Verify project navigation, carousel controls, language changes, and mobile layouts.
+- [x] Include original Medium article covers in blog and home cards, preserving automatic refresh and external publishing.
