@@ -11,3 +11,4 @@
 - [x] Correct email and LinkedIn links and show every published project in the home carousel with same-tab navigation.
 - [x] Add Accessibility Audit with extracted cover, video, bilingual page, and verify the project flow.
 - [ ] Add a working résumé download when the user supplies the file.
+- [x] Keep Medium articles automatically refreshed in the browser and GitHub Pages publication.

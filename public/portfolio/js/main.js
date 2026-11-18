@@ -47,6 +47,7 @@
   }
 
   /* Templates */
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
   const projectCard = p => `
     <article class="card project reveal">
       <a href="${p.link}" class="project-media">
@@ -56,9 +57,9 @@
     </article>`;
   const postCard = original => { const p = localizedPost(original, language); return `
     <article class="card post-card reveal">
-      <a href="${p.link}" target="_blank" rel="noopener" class="card-body">
-        <p class="meta"><time datetime="${p.date}">${fmt(p.date)}</time> · ${p.tags.map(t).join(", ")}</p>
-        <h3>${t(p.title)}</h3><p>${p.excerpt}</p><span class="read-more">${t("Read on Medium →")}</span>
+      <a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="card-body">
+        <p class="meta"><time datetime="${escapeHTML(p.date)}">${fmt(p.date)}</time> · ${p.tags.map(tag => escapeHTML(t(tag))).join(", ")}</p>
+        <h3>${escapeHTML(t(p.title))}</h3><p>${escapeHTML(p.excerpt)}</p><span class="read-more">${t("Read on Medium →")}</span>
       </a>
     </article>`; };
 
@@ -172,19 +173,38 @@
   setLanguage(language);
   window.addEventListener("storage", event => { if (event.key === "lang") setLanguage(event.newValue); });
   if (page === "post") location.replace("blog.html");
-  /* Live Medium feed (falls back to the list in data.js) */
+  /* Live Medium feed plus a scheduled static snapshot for GitHub Pages. */
   if (page === "home" || page === "blog") {
-    drawPosts();
-    fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://medium.com/feed/@" + MEDIUM_USER))
+    let refreshing = false;
+    function applyPosts(posts) {
+      const valid = posts.filter(p => typeof p.title === "string" && /^https:\/\/medium\.com\//.test(p.link) && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Array.isArray(p.tags) && typeof p.excerpt === "string");
+      if (!valid.length) return;
+      const combined = new Map(sorted.map(p => [p.link, p]));
+      valid.forEach(p => combined.set(p.link, p));
+      sorted = [...combined.values()].sort((a, b) => b.date.localeCompare(a.date));
+      drawPosts();
+    }
+    async function refreshPosts() {
+      if (refreshing || document.hidden) return;
+      refreshing = true;
+      try {
+        await fetch("medium-posts.json", { cache: "no-store", signal: AbortSignal.timeout(15000) })
+          .then(r => r.ok ? r.json() : null).then(d => { if (Array.isArray(d?.posts)) applyPosts(d.posts); }).catch(() => {});
+        await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://medium.com/feed/@" + MEDIUM_USER), { cache: "no-store", signal: AbortSignal.timeout(15000) })
       .then(r => r.json()).then(d => {
-        if (d.status !== "ok" || !d.items.length) return;
+        if (d.status !== "ok" || !Array.isArray(d.items) || !d.items.length) return;
         const strip = h => { const t = document.createElement("div"); t.innerHTML = h; return [...t.querySelectorAll("p")].map(x => x.textContent.trim()).find(x => x.length > 60) || ""; };
-        sorted = d.items.map(i => { const e = strip(i.content || i.description); return {
+        applyPosts(d.items.map(i => { const e = strip(i.content || i.description); return {
           title: i.title, date: i.pubDate.slice(0, 10), link: i.link.split("?")[0],
           tags: (i.categories || []).slice(0, 2).map(c => c.replace(/-/g, " ").replace(/\b\w/g, m => m.toUpperCase()).replace(/\bQa\b/g, "QA").replace(/\bAi\b/g, "AI")),
-          excerpt: e.length > 160 ? e.slice(0, 160).replace(/\s\S*$/, "") + "…" : e }; });
-        drawPosts();
+          excerpt: e.length > 160 ? e.slice(0, 160).replace(/\s\S*$/, "") + "…" : e }; }));
       }).catch(() => {});
+      } finally { refreshing = false; }
+    }
+    refreshPosts();
+    setInterval(refreshPosts, 5 * 60 * 1000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshPosts(); });
+    window.addEventListener("focus", refreshPosts);
   }
 
   /* Scroll reveal (skipped automatically if user prefers reduced motion) */

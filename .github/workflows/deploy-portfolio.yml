@@ -7,8 +7,11 @@ on:
       - "public/portfolio/**"
       - "src/assets/**"
       - "scripts/export-portfolio.mjs"
+      - "scripts/refresh-medium.py"
       - ".github/workflows/deploy-portfolio.yml"
   workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
 
 permissions:
   contents: read
@@ -37,6 +40,9 @@ jobs:
 
       - name: Export images and videos for GitHub Pages
         run: node scripts/export-portfolio.mjs "$RUNNER_TEMP/portfolio-pages"
+
+      - name: Refresh Medium articles
+        run: python3 scripts/refresh-medium.py "$RUNNER_TEMP/portfolio-pages/medium-posts.json"
 
       - name: Upload the static portfolio
         uses: actions/upload-pages-artifact@v5
