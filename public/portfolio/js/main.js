@@ -57,7 +57,7 @@
     </article>`;
   const postCard = original => { const p = localizedPost(original, language); return `
     <article class="card post-card reveal">
-      ${p.image ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="post-media" tabindex="-1" aria-hidden="true"><img src="${escapeHTML(p.image)}" alt="" loading="lazy" decoding="async"></a>` : ""}
+      ${page === "blog" && p.image ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="post-media" tabindex="-1" aria-hidden="true"><img src="${escapeHTML(p.image)}" alt="" loading="lazy" decoding="async"></a>` : ""}
       <a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" class="card-body">
         <p class="meta"><time datetime="${escapeHTML(p.date)}">${fmt(p.date)}</time> · ${p.tags.map(tag => escapeHTML(t(tag))).join(", ")}</p>
         <h3>${escapeHTML(t(p.title))}</h3><p>${escapeHTML(p.excerpt)}</p><span class="read-more">${t("Read on Medium →")}</span>
@@ -75,102 +75,103 @@
   const carousels = new Map();
   function drawCarousel(root, projects) {
     const previous = carousels.get(root.id);
-    const initial = Math.min(previous?.index || 0, Math.max(0, projects.length - 1));
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let playing = previous ? previous.playing && !reduced.matches : !reduced.matches && projects.length > 1;
+    const initial = previous?.index || 0;
     previous?.cleanup();
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     root.className = "project-carousel";
     root.setAttribute("role", "region");
     root.setAttribute("aria-roledescription", "carousel");
     root.setAttribute("aria-label", t("Projects"));
     const arrow = direction => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${direction === "previous" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}"/></svg>`;
     root.innerHTML = `<div class="carousel-track" tabindex="0" aria-label="${t("Projects")}">${projects.map(projectCard).join("")}</div>
-      <div class="carousel-controls"><div class="carousel-progress" aria-hidden="true"><span></span></div><div class="carousel-dots">${projects.map((p, i) => `<button class="carousel-dot" data-slide="${i}" aria-label="${t("Go to project")}: ${t(p.title)}" title="${t(p.title)}"></button>`).join("")}</div>
-      <span class="carousel-count"></span><div class="carousel-arrows">
+      <div class="carousel-controls"><span class="carousel-count"></span><div class="carousel-arrows">
       <button class="btn btn-ghost carousel-button" data-action="previous" aria-label="${t("Previous project")}" title="${t("Previous project")}">${arrow("previous")}</button>
-      <button class="btn btn-ghost carousel-button" data-action="play" aria-label="${t("Pause carousel")}" title="${t("Pause carousel")}"></button>
       <button class="btn btn-ghost carousel-button" data-action="next" aria-label="${t("Next project")}" title="${t("Next project")}">${arrow("next")}</button></div></div>`;
     const track = $(".carousel-track", root), cards = [...track.children];
     const controller = new AbortController(), options = { signal: controller.signal };
-    let hovered = false, visible = false, frame = 0, clock = 0, elapsed = 0, lastTime = 0, direction = 1, settlingUntil = 0;
-    const duration = 6500;
-    const progress = $(".carousel-progress span", root);
-    const state = { index: initial, playing, cleanup: () => { controller.abort(); cancelAnimationFrame(frame); cancelAnimationFrame(clock); observer.disconnect(); resize.disconnect(); } };
+    let frame = 0, drag = null, suppressClick = false, suppressTimer = 0;
+    let stops = [];
+    const state = { index: initial, cleanup: () => {
+      controller.abort(); cancelAnimationFrame(frame); clearTimeout(suppressTimer); resize.disconnect();
+    } };
     carousels.set(root.id, state);
     cards.forEach(card => card.classList.add("visible"));
     function update() {
-      state.playing = playing;
-      cards.forEach((card, i) => card.classList.toggle("is-active", i === state.index));
-      root.querySelectorAll("[data-slide]").forEach((dot, i) => dot.setAttribute("aria-current", i === state.index ? "true" : "false"));
-      $(".carousel-count", root).textContent = `${String(state.index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
-      const play = $('[data-action="play"]', root);
-      play.setAttribute("aria-pressed", String(playing));
-      play.setAttribute("aria-label", t(playing ? "Pause carousel" : "Play carousel"));
-      play.title = t(playing ? "Pause carousel" : "Play carousel");
-      play.innerHTML = playing ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>' : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-      root.querySelectorAll("[data-action]").forEach(button => button.disabled = projects.length < 2);
+      if (!stops.length) return;
+      const nearest = stops.reduce((best, stop, i) => Math.abs(stop - track.scrollLeft) < Math.abs(stops[best] - track.scrollLeft) ? i : best, 0);
+      state.index = nearest;
+      $('[data-action="previous"]', root).disabled = track.scrollLeft < 2;
+      $('[data-action="next"]', root).disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      const visible = cards.map((card, i) => ({ card, i })).filter(({card}) => card.offsetLeft + card.offsetWidth > track.scrollLeft + 8 && card.offsetLeft < track.scrollLeft + track.clientWidth - 8);
+      const first = visible[0]?.i || 0, last = visible.at(-1)?.i || 0;
+      $(".carousel-count", root).textContent = `${String(first + 1).padStart(2, "0")}–${String(last + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
     }
-    function go(index, manual = false) {
-      if (!cards.length) return;
-      if (manual) playing = false;
-      const wrapping = index < 0 || index >= cards.length;
-      state.index = (index + cards.length) % cards.length;
-      elapsed = 0;
-      settlingUntil = performance.now() + 800;
-      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: reduced.matches || wrapping ? "instant" : "smooth" });
-      update();
+    function go(index) {
+      if (!stops.length) return;
+      state.index = Math.max(0, Math.min(index, stops.length - 1));
+      track.scrollTo({ left: stops[state.index], behavior: reduced.matches ? "instant" : "smooth" });
     }
     root.addEventListener("click", event => {
-      const button = event.target.closest("button");
-      if (!button) return;
-      if (button.dataset.slide !== undefined) go(Number(button.dataset.slide), true);
-      if (button.dataset.action === "previous") go(state.index - 1, true);
-      if (button.dataset.action === "next") go(state.index + 1, true);
-      if (button.dataset.action === "play") { playing = !playing; elapsed = 0; update(); }
+      const button = event.target.closest("[data-action]");
+      if (button) go(state.index + (button.dataset.action === "next" ? 1 : -1));
     }, options);
     track.addEventListener("keydown", event => {
       if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
-      go(event.key === "Home" ? 0 : event.key === "End" ? cards.length - 1 : state.index + (event.key === "ArrowRight" ? 1 : -1), true);
+      go(event.key === "Home" ? 0 : event.key === "End" ? stops.length - 1 : state.index + (event.key === "ArrowRight" ? 1 : -1));
     }, options);
-    track.addEventListener("pointerdown", () => { playing = false; update(); }, options);
-    track.addEventListener("wheel", () => { playing = false; update(); }, options);
+    track.addEventListener("dragstart", event => event.preventDefault(), options);
+    track.addEventListener("pointerdown", event => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      drag = { id: event.pointerId, x: event.clientX, left: track.scrollLeft, moved: false };
+      suppressClick = false;
+    }, options);
+    track.addEventListener("pointermove", event => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const delta = event.clientX - drag.x;
+      if (!drag.moved && Math.abs(delta) < 6) return;
+      if (!drag.moved) {
+        drag.moved = true;
+        track.setPointerCapture(event.pointerId);
+        track.classList.add("is-dragging");
+      }
+      event.preventDefault();
+      track.scrollLeft = drag.left - delta;
+    }, options);
+    function endDrag(event) {
+      if (!drag || event.pointerId !== drag.id) return;
+      const moved = drag.moved;
+      drag = null;
+      track.classList.remove("is-dragging");
+      if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+      if (moved) {
+        suppressClick = true;
+        clearTimeout(suppressTimer);
+        suppressTimer = setTimeout(() => suppressClick = false, 150);
+        update(); go(state.index);
+      }
+    }
+    track.addEventListener("pointerup", endDrag, options);
+    track.addEventListener("pointercancel", endDrag, options);
+    track.addEventListener("lostpointercapture", endDrag, options);
+    track.addEventListener("pointerleave", event => { if (drag && !drag.moved) endDrag(event); }, options);
+    track.addEventListener("click", event => {
+      if (suppressClick) { event.preventDefault(); event.stopPropagation(); }
+    }, { ...options, capture: true });
     track.addEventListener("scroll", () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const distances = cards.map(card => Math.abs(card.offsetLeft - track.scrollLeft));
-        const nearest = distances.indexOf(Math.min(...distances));
-        if (nearest !== state.index) { state.index = nearest; elapsed = 0; update(); }
-      });
+      cancelAnimationFrame(frame); frame = requestAnimationFrame(update);
     }, options);
-    root.addEventListener("mouseenter", () => hovered = true, options);
-    root.addEventListener("mouseleave", () => hovered = false, options);
-    const observer = new IntersectionObserver(entries => visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .35, { threshold: [0, .35] });
-    observer.observe(root);
+    let measuredWidth = 0;
     const resize = new ResizeObserver(() => {
-      if (!cards.length) return;
-      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-      track.style.setProperty("--tail-space", `${Math.max(0, track.clientWidth - cards[0].offsetWidth - gap)}px`);
-      track.scrollTo({ left: cards[state.index].offsetLeft, behavior: "instant" });
+      if (track.clientWidth === measuredWidth) return;
+      measuredWidth = track.clientWidth;
+      const max = Math.max(0, track.scrollWidth - track.clientWidth);
+      stops = [...new Set(cards.map(card => Math.min(card.offsetLeft, max)))];
+      state.index = Math.min(state.index, stops.length - 1);
+      track.scrollTo({ left: stops[state.index] || 0, behavior: "instant" });
+      update();
     });
     resize.observe(track);
-    reduced.addEventListener("change", () => { if (reduced.matches) { playing = false; elapsed = 0; update(); } }, options);
-    function tick(now) {
-      const active = playing && visible && !hovered && !document.hidden && !track.contains(document.activeElement) && now >= settlingUntil;
-      if (active && lastTime) elapsed += Math.min(now - lastTime, 100);
-      lastTime = now;
-      progress.style.transform = `scaleX(${elapsed / duration})`;
-      root.dataset.running = String(active);
-      if (elapsed >= duration) {
-        if (state.index === cards.length - 1) direction = -1;
-        if (state.index === 0) direction = 1;
-        go(state.index + direction);
-      }
-      clock = requestAnimationFrame(tick);
-    }
-    clock = requestAnimationFrame(tick);
-    update();
-    frame = requestAnimationFrame(() => track.scrollTo({ left: cards[initial]?.offsetLeft || 0, behavior: "instant" }));
   }
   function drawProjects() {
     const grid = $("#gallery");

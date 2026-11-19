@@ -16,3 +16,5 @@
 - [x] Display Projects as a card grid and refine the home carousel animation and navigation.
 - [x] Verify project navigation, carousel controls, language changes, and mobile layouts.
 - [x] Include original Medium article covers in blog and home cards, preserving automatic refresh and external publishing.
+- [x] Make Blog covers small left-side thumbnails and restore text-only home articles.
+- [x] Replace the oversized automatic home carousel with compact cards, previous/next arrows, and mouse dragging; verify links and mobile navigation.
