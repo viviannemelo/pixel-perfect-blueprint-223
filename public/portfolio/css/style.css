@@ -105,9 +105,9 @@ section { padding: 4rem 0; }
 .card:hover .read-more { gap: .75rem; color: var(--accent); }
 .post-list { grid-template-columns: 1fr; max-width: 800px; }
 .post-list .post-card:has(.post-media) { display: grid; grid-template-columns: 144px minmax(0, 1fr); align-items: center; }
-.post-media { display: block; width: 144px; aspect-ratio: 4 / 3; margin-left: 1.4rem; overflow: hidden; background: var(--surface); border-radius: var(--radius); }
+.post-media { display: block; width: 144px; aspect-ratio: 1 / 1; margin-left: 1.4rem; overflow: hidden; background: var(--surface); border-radius: var(--radius); }
 .post-list .post-card:has(.post-media) .card-body { padding-left: 2.8rem; min-width: 0; }
-.post-media img { width: 100%; height: 100%; object-fit: contain; transition: transform .65s var(--motion-project); }
+.post-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s var(--motion-project); }
 .post-card:hover .post-media img { transform: scale(1.025); }
 .post-card h3 { overflow-wrap: anywhere; }
 @media (max-width: 560px) {

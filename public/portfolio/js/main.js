@@ -224,7 +224,7 @@
         await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://medium.com/feed/@" + MEDIUM_USER), { cache: "no-store", signal: AbortSignal.timeout(15000) })
       .then(r => r.json()).then(d => {
         if (d.status !== "ok" || !Array.isArray(d.items) || !d.items.length) return;
-        const strip = h => { const t = document.createElement("div"); t.innerHTML = h; return [...t.querySelectorAll("p")].map(x => x.textContent.trim()).find(x => x.length > 60) || ""; };
+        const strip = h => { const d = new DOMParser().parseFromString(h, "text/html"); return [...d.querySelectorAll("p")].map(x => x.textContent.trim()).find(x => x.length > 60) || ""; };
         applyPosts(d.items.map(i => { const e = strip(i.content || i.description); return {
           title: i.title, date: i.pubDate.slice(0, 10), link: i.link.split("?")[0],
           tags: (i.categories || []).slice(0, 2).map(c => c.replace(/-/g, " ").replace(/\b\w/g, m => m.toUpperCase()).replace(/\bQa\b/g, "QA").replace(/\bAi\b/g, "AI")),
